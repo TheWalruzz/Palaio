@@ -89,6 +89,6 @@ class Node(T)
         @property ref Vector!Node children() { return _children; }
         @property ref Node parent() { return _parent; }
         @property ref T data() { return _data; }
-        @property int length() { return _children.length; }
+        @property int childrenSize() { return _children.length; }
         @property bool isLeaf() { return (_children.length==0); }
 }
