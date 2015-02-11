@@ -1,6 +1,7 @@
 module Palaio.Board.Board;
 
 import Palaio.Board.Field;
+import Palaio.Board.Move;
 
 class Board
 {
@@ -108,6 +109,32 @@ class Board
 			return new Board(this);
 		}
 
+		bool checkMove(ref Move move)
+		{
+			return true;
+		}
+
+		bool doMove(ref Move move)
+		{
+			if(checkMove(move))
+			{
+				FieldState player = move.startField.state;
+				_fields[move.startField.y][move.startField.x].state = FieldState.Empty;
+				_fields[move.endField.y][move.endField.x].state = player;
+
+				if(move.blockStartField !is null && move.blockEndField !is null)
+				{
+					if(move.moveType == MoveType.Pull)
+						_fields[move.blockStartField.y][move.blockStartField.x].state = FieldState.Empty;
+					_fields[move.endField.y][move.endField.x].state = FieldState.Block;
+				}
+
+				return true;
+			}
+
+			return false;
+		}
+
 		ref Field getField(int x, int y)
 		{
 			return _fields[y][x];
@@ -116,5 +143,10 @@ class Board
 		FieldState getFieldState(int x, int y)
 		{
 			return _fields[y][x].state;
+		}
+
+		void setFieldState(int x, int y, FieldState state)
+		{
+			_fields[y][x].state = state;
 		}
 }
