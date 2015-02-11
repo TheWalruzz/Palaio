@@ -23,11 +23,90 @@
 <br>
 
 <dl>
+<dt><span class="decl"><a name="MoveType"></a>enum 
+<span class="currsymbol">MoveType</span>: int;
+</span></dt>
+<dd>Enum type for move type.
+<br><br>
+Allowed values: 
+<span class="currsymbol">MoveType</span>.Move, 
+<span class="currsymbol">MoveType</span>.Push, 
+<span class="currsymbol">MoveType</span>.Pull.<br><br>
+
+</dd>
+
 <dt><span class="decl"><a name="Move"></a>class 
 <span class="currsymbol">Move</span>;
 </span></dt>
-<dd>Class for move information.<br><br>
+<dd>Class representing the move.<br><br>
 
+
+<dl>
+<dt><span class="decl"><a name="Move.this"></a>this(MoveType <span class="funcparam">moveType</span>, Field <span class="funcparam">start</span>, Field <span class="funcparam">end</span>, Field <span class="funcparam">blockStart</span> = null, Field <span class="funcparam">blockEnd</span> = null);
+</span></dt>
+<dd>Creates a new move.
+<br><br>
+<b>Params:</b><br>
+<table><tr>
+<td nowrap valign="top" style="padding-right: 8px">MoveType <span class="funcparam">moveType</span></td>
+
+<td>Type of move.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">start</span></td>
+
+<td>Starting field for player's pawn.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">end</span></td>
+
+<td>Ending field for player's pawn.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">blockStart</span></td>
+
+<td>[OPTIONAL] Starting field for block if block is moved.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">blockStart</span></td>
+
+<td>[OPTIONAL] Ending field for block if block is moved.</td></tr>
+</table><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Move.moveType"></a>@property MoveType 
+<span class="currsymbol">moveType</span>();
+</span></dt>
+<dd>Gets 
+<span class="currsymbol">moveType</span>.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Move.startField"></a>@property ref Field 
+<span class="currsymbol">startField</span>();
+</span></dt>
+<dd>Gets starting field of a pawn.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Move.endField"></a>@property ref Field 
+<span class="currsymbol">endField</span>();
+</span></dt>
+<dd>Gets ending field for a pawn.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Move.blockStartField"></a>@property ref Field 
+<span class="currsymbol">blockStartField</span>();
+</span></dt>
+<dd>Gets starting field for a block. Null if move doesn't involve blocks.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Move.blockEndField"></a>@property ref Field 
+<span class="currsymbol">blockEndField</span>();
+</span></dt>
+<dd>Gets ending field for a block. Null if move doesn't involve blocks.<br><br>
+
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -37,7 +116,7 @@
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Wed Feb 11 03:42:44 2015
+            on Wed Feb 11 16:06:54 2015
 
         </td>-->
 <span id="packages" class="emptytag">

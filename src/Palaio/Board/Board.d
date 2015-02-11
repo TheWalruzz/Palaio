@@ -3,16 +3,18 @@ module Palaio.Board.Board;
 import Palaio.Board.Field;
 import Palaio.Board.Move;
 
+/// Class implementing the board.
 class Board
 {
 	private:
 		Field[][] _fields;
 		
 	public:
+		/// Creates new board object.
 		this()
 		{
-			// init dynamic, irregular two-dimensional array representing the board...
-            _fields.length=7; // because who needs malloc? ;)
+			// init dynamic, irregular two-dimensional array representing the board
+            _fields.length=7;
             _fields[0].length=5;
             _fields[1].length=6;
             _fields[2].length=7;
@@ -95,6 +97,11 @@ class Board
 				}
 		}
 
+		/**
+		* Creates a new, shallowly copied board.
+		* Params:
+		*	board =			Board to copy from.
+		*/
 		this(ref Board board)
 		{
 			this();
@@ -104,6 +111,10 @@ class Board
 					_fields[i][j].state = board.getFieldState(j, i);
 		}
 
+		/**
+		* Creates and returns a new, shallowly copied board.
+		* Returns: New Board object.
+		*/
 		Board clone()
 		{
 			return new Board(this);
@@ -114,6 +125,12 @@ class Board
 			return true;
 		}
 
+		/**
+		* Applies a move to the board if that move is valid. 
+		* Params:
+		*	move =			Move to be applied.
+		* Returns: True if move was correctly applied, false otherwise.
+		*/
 		bool doMove(ref Move move)
 		{
 			if(checkMove(move))
@@ -135,16 +152,37 @@ class Board
 			return false;
 		}
 
+		/**
+		* Gets Field object of particular field.
+		* Params:
+		*	x =				X index of the field.
+		*	y =				Y index of the field.
+		* Returns: Reference to the Field object.
+		*/
 		ref Field getField(int x, int y)
 		{
 			return _fields[y][x];
 		}
 
+		/**
+		* Gets state of particular field.
+		* Params:
+		*	x =				X index of the field.
+		*	y =				Y index of the field.
+		* Returns: State of a field.
+		*/
 		FieldState getFieldState(int x, int y)
 		{
 			return _fields[y][x].state;
 		}
 
+		/**
+		* Sets state of particular field.
+		* Params:
+		*	x =				X index of the field.
+		*	y =				Y index of the field.
+		*	state =			New state of a field.
+		*/
 		void setFieldState(int x, int y, FieldState state)
 		{
 			_fields[y][x].state = state;

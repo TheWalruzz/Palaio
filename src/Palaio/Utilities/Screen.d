@@ -14,6 +14,7 @@ import Derelict.SDL2.ttf;
 pragma(lib,"DerelictSDL2.lib");
 pragma(lib,"DerelictUtil.lib");
 
+/// Singleton class implementing the screen handling.
 class Screen
 {
     private:
@@ -33,7 +34,7 @@ class Screen
             DerelictSDL2ttf.load();
 
             if(!TTF_WasInit()) // just because Derelict's bindings for SDL2_TTF are shit
-                if(TTF_Init()<0)
+                if(TTF_Init() < 0)
                     _l.write("Error: Can't initialize SDL_TTF: "~to!string(TTF_GetError()));
 
             _win = SDL_CreateWindow(cast(char*) WINDOWTITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT,SDL_WINDOW_SHOWN);
@@ -49,16 +50,7 @@ class Screen
                 _l.write("Renderer created");
         }
 
-    public:
-        static ref Screen getInstance()
-		{
-			if(_instance is null)
-				_instance = new Screen();
-
-			return _instance;
-		}
-
-        ~this()
+		~this()
         {
             SDL_DestroyRenderer(_ren);
             SDL_DestroyWindow(_win);
@@ -69,6 +61,25 @@ class Screen
             //DerelictSDL2.unload();
         }
 
+    public:
+		/**
+		* Gets the singleton instance of object.
+		* Returns: Reference to the object.
+		*/
+        static ref Screen getInstance()
+		{
+			if(_instance is null)
+				_instance = new Screen();
+
+			return _instance;
+		}
+
+		/**
+		* Gets texture from an image file.
+		* Params:
+		*	file =			Filename of an image.
+		* Returns: Loaded texture.
+		*/
         SDL_Texture* getImageTexture(string file)
         {
             SDL_Texture *tex = IMG_LoadTexture(_ren,cast(char*) file);
@@ -80,6 +91,15 @@ class Screen
             return tex;
         }
 
+		/**
+		* Adds texture to the buffer and scales the texture to the specified dimensions.
+		* Params:
+		*	tex =			Texture.
+		*	x =				X coordinate.
+		*	y =				Y coordinate.
+		*	w =				Width to be scaled to.
+		*	h =				Height to be scaled to.
+		*/
         void addTexture(SDL_Texture *tex, int x, int y, int w, int h)
         {
             SDL_Rect dst;
@@ -90,6 +110,13 @@ class Screen
             SDL_RenderCopy(_ren, tex, null, &dst);
         }
 
+		/**
+		* Adds texture to the buffer.
+		* Params:
+		*	tex =			Texture.
+		*	x =				X coordinate.
+		*	y =				Y coordinate.
+		*/
         void addTexture(SDL_Texture *tex, int x, int y)
         {
             int w, h;
@@ -97,6 +124,15 @@ class Screen
             addTexture(tex, x, y, w, h);
         }
 
+		/**
+		* Gets texture of a text.
+		* Params:
+		*	text =			Text to be written.
+		*	fontFile =		Filename of font to be used.
+		*	color =			Color of the image.
+		*	fontSize =		Size of the font.
+		* Returns: Texture.
+		*/
         SDL_Texture* getTextTexture(string text, string fontFile, SDL_Color color, int fontSize)
         {
             TTF_Font *font = TTF_OpenFont(cast(char*) fontFile, fontSize);
@@ -124,6 +160,15 @@ class Screen
             return tex;
         }
 
+		/**
+		* Draws a line on the buffer from one point to another.
+		* Params:
+		*	x0 =			X coordinate of first point.
+		*	y0 =			Y coordinate of first point.
+		*	x1 =			X coordinate of second point.
+		*	y1 =			Y coordinate of second point.
+		*	color =			Color of the line.
+		*/
         void drawLine(int x0, int y0, int x1, int y1, SDL_Color color)
         {
             ubyte r, g, b, a;
@@ -133,16 +178,24 @@ class Screen
             SDL_SetRenderDrawColor(_ren, r, g, b, a);
         }
 
+		/// Clears the screen.
         void clear()
         {
             SDL_RenderClear(_ren);
         }
 
+		/// Renders buffer to the screen.
         void renderAll()
         {
             SDL_RenderPresent(_ren);
         }
 
+		/**
+		* Shows a simple message box.
+		* Params:
+		*	title =			Title of the box.
+		*	text =			Text of the message.
+		*/
         void messageBox(string title, string text)
         {
             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, cast(char*)title, cast(char*)text,_win);

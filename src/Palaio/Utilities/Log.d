@@ -6,6 +6,7 @@ import std.stdio;
 import std.string;
 import std.datetime;
 
+/// Singleton class implementing the simple logger.
 class Log
 {
     private:
@@ -34,6 +35,10 @@ class Log
         }
 
     public:
+		/**
+		* Gets instance of logger.
+		* Returns: Reference to Log object.
+		*/
         static ref Log getInstance()
 		{
 			if(_instance is null)
@@ -42,6 +47,11 @@ class Log
 			return _instance;
 		}
 
+		/**
+		* Writes a new entry to the log.
+		* Params:
+		*	text =			Text to be written.
+		*/
         bool write(string text)
         {
             if(_f.isOpen())
