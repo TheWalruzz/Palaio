@@ -48,6 +48,32 @@ class Field
 			_neighbours.pushBack(neighbour);
 		}
 
+		/**
+		* Searches for specified field in the neighbour container.
+		* Params:
+		*	neighbour =		Field to search for.
+		* Returns: Position on the neighbour container.
+		*/
+		int searchNeighbour(ref Field neighbour)
+		{
+			for(int i = 0; i < _neighbours.length; i++)
+				if(_neighbours[i].x == neighbour.x && _neighbours[i].y == neighbour.y)
+					return i;
+
+			return -1;
+		}
+
+		/**
+		* Checks if specified field is connected to this field.
+		* Params:
+		*	neighbour =		Field to check for.
+		* Returns: true if field exists in the container, false otherwise.
+		*/
+		bool checkNeighbour(ref Field neighbour)
+		{
+			return searchNeighbour(neighbour) > -1;
+		}
+
 		@property
 		{
 			/// Sets the state of a field.

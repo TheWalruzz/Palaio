@@ -78,6 +78,38 @@ Allowed values:
 
 </dd>
 
+<dt><span class="decl"><a name="Field.searchNeighbour"></a>int 
+<span class="currsymbol">searchNeighbour</span>(ref Field <span class="funcparam">neighbour</span>);
+</span></dt>
+<dd>Searches for specified field in the <span class="funcparam">neighbour</span> container.
+<br><br>
+<b>Params:</b><br>
+<table><tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">neighbour</span></td>
+
+<td>Field to search for.</td></tr>
+</table><br>
+<b>Returns:</b><br>
+Position on the <span class="funcparam">neighbour</span> container.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Field.checkNeighbour"></a>bool 
+<span class="currsymbol">checkNeighbour</span>(ref Field <span class="funcparam">neighbour</span>);
+</span></dt>
+<dd>Checks if specified field is connected to this field.
+<br><br>
+<b>Params:</b><br>
+<table><tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">neighbour</span></td>
+
+<td>Field to check for.</td></tr>
+</table><br>
+<b>Returns:</b><br>
+<b>true</b> if field exists in the container, <b>false</b> otherwise.<br><br>
+
+</dd>
+
 <dt><span class="decl"><a name="Field.state"></a>@property void 
 <span class="currsymbol">state</span>(FieldState <span class="funcparam">newState</span>);
 </span></dt>
@@ -126,7 +158,7 @@ Allowed values:
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Wed Feb 11 16:06:54 2015
+            on Thu Feb 12 11:08:18 2015
 
         </td>-->
 <span id="packages" class="emptytag">
