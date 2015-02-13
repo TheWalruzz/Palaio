@@ -17,8 +17,6 @@ class Move
 	private:
 		Field _start;
 		Field _end;
-		Field _blockStart;
-		Field _blockEnd;
 		MoveType _moveType;
 
 	public:
@@ -28,16 +26,12 @@ class Move
 		*	moveType =		Type of move.
 		*	start =			Starting field for player's pawn.
 		*	end =			Ending field for player's pawn.
-		*	blockStart =	[OPTIONAL] Starting field for block if block is moved.
-		*	blockStart =	[OPTIONAL] Ending field for block if block is moved.
 		*/
-		this(MoveType moveType, Field start, Field end, Field blockStart = null, Field blockEnd = null)
+		this(MoveType moveType, Field start, Field end)
 		{
 			_moveType = moveType;
 			_start = start;
 			_end = end;
-			_blockStart = blockStart;
-			_blockEnd = blockEnd;
 		}
 
 		@property
@@ -50,11 +44,5 @@ class Move
 
 			/// Gets ending field for a pawn.
 			ref Field endField() { return _end; }
-
-			/// Gets starting field for a block. Null if move doesn't involve blocks.
-			ref Field blockStartField() { return _blockStart; }
-
-			/// Gets ending field for a block. Null if move doesn't involve blocks.
-			ref Field blockEndField() { return _blockEnd; }
 		}
 }

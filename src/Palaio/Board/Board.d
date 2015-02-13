@@ -14,14 +14,14 @@ class Board
 		this()
 		{
 			// init dynamic, irregular two-dimensional array representing the board
-            _fields.length=7;
-            _fields[0].length=5;
-            _fields[1].length=6;
-            _fields[2].length=7;
-            _fields[3].length=8;
-            _fields[4].length=7;
-            _fields[5].length=6;
-            _fields[6].length=5;
+            _fields.length = 7;
+            _fields[0].length = 5;
+            _fields[1].length = 6;
+            _fields[2].length = 7;
+            _fields[3].length = 8;
+            _fields[4].length = 7;
+            _fields[5].length = 6;
+            _fields[6].length = 5;
 
 			// initialize field objects, so we they can reference themselves later
 			for(int i = 0; i < 7; i++)
@@ -122,7 +122,37 @@ class Board
 
 		bool checkMove(ref Move move)
 		{
-			return true;
+			if(move.startField.checkNeighbour(move.endField))
+			{
+				if(move.moveType == MoveType.Move)
+				{
+					if(_fields[move.endField.y][move.endField.x].state == FieldState.Empty)
+						return true;
+
+				}
+				else if(move.moveType == MoveType.Push)
+				{
+					if(_fields[move.endField.y][move.endField.x].state == FieldState.Block)
+					{
+						// do the actual check
+
+						return true;
+					}
+				}
+				else
+				{
+					if(_fields[move.endField.y][move.endField.x].state == FieldState.Block)
+					{
+						// do the actual check
+
+						return true;
+					}
+				}
+
+				return true;
+			}
+
+			return false;
 		}
 
 		/**
@@ -136,14 +166,180 @@ class Board
 			if(checkMove(move))
 			{
 				FieldState player = move.startField.state;
-				_fields[move.startField.y][move.startField.x].state = FieldState.Empty;
-				_fields[move.endField.y][move.endField.x].state = player;
 
-				if(move.blockStartField !is null && move.blockEndField !is null)
+				if(move.moveType != MoveType.Pull)
 				{
-					if(move.moveType == MoveType.Pull)
-						_fields[move.blockStartField.y][move.blockStartField.x].state = FieldState.Empty;
-					_fields[move.endField.y][move.endField.x].state = FieldState.Block;
+					_fields[move.startField.y][move.startField.x].state = FieldState.Empty;
+					_fields[move.endField.y][move.endField.x].state = player;
+				}
+
+				if(move.moveType == MoveType.Push)
+				{
+					if(move.endField.y < move.startField.y) // if pushing up
+						switch(move.startField.y)
+						{
+							case 2:
+                            case 3:
+                                if(move.endField.x < move.startField.x) // left
+									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
+                                else // right
+                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+								break;
+
+                            case 4:
+								// ifs are separated to ensure that expressions with equal signs are checked first
+                                if(move.startField.x == 0 && move.endField.x == 0) // left edge - special rules apply
+                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+                                else if(move.startField.x == 6 && move.endField.x == 7) // right edge - special rules apply
+                                    _fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
+                                else if(move.startField.x == move.endField.x) // left
+                                    _fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
+                                else // right
+                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+								break;
+
+                            case 5:
+                            case 6:
+                                if(move.startField.x == move.endField.x) // left
+                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+                                else // right
+                                    _fields[move.endField.y - 1][move.endField.x + 1].state = FieldState.Block;
+								break;
+
+                            default:
+								break;
+						}
+					else if(move.endField.y > move.startField.y) // push down
+						switch(move.startField.y)
+						{
+							case 3:
+                            case 4:
+                                if(move.startField.x > move.endField.x) // left
+                                    _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
+                                else // right
+                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+							break;
+
+                            case 2:
+                                if(move.startField.x == 0 &&  move.endField.x == 0)
+                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+                                else if(move.startField.x == 6 && move.endField.x == 7)
+                                     _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
+                                else if(move.startField.x == move.endField.x) // left
+                                    _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
+                                else // right
+                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+							break;
+
+                            case 1:
+                            case 0:
+                                if(move.startField.x == move.endField.x) // left
+                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+                                else // right
+                                    _fields[move.endField.y + 1][move.endField.x + 1].state = FieldState.Block;
+							break;
+
+                            default:
+							break;
+						}
+					else
+					{
+						if(move.startField.x < move.endField.x) // push right
+                            _fields[move.endField.y][move.endField.x + 1].state = FieldState.Block;
+                        else if(move.startField.x >  move.endField.x)
+                            _fields[move.endField.y][move.endField.x - 1].state = FieldState.Block;
+					}
+				}
+				else if(move.moveType == MoveType.Pull)
+				{
+					_fields[move.endField.y][move.endField.x].state = FieldState.Empty;
+					_fields[move.startField.y][move.startField.x].state = FieldState.Block;
+					
+					if(move.startField.y < move.endField.y) // pull up
+					{
+						switch(move.startField.y)
+                        {
+                            case 1:
+                            case 2:
+                                if(move.startField.x < move.endField.x) // left
+									_fields[move.startField.y - 1][move.startField.x - 1].state = player;
+                                else
+                                    _fields[move.startField.y - 1][move.startField.x].state = player;
+							break;
+
+                            case 3:
+                                if(move.startField.x == 0 && move.endField.x == 0)
+                                    _fields[move.startField.y - 1][move.startField.x].state = player;
+                                else if(move.startField.x == 7 && move.endField.x == 6)
+                                    _fields[move.startField.y - 1][move.startField.x - 1].state = player;
+                                else if(move.startField.x == move.endField.x) // left
+                                    _fields[move.startField.y - 1][move.startField.x - 1].state = player;
+                                else
+                                    _fields[move.startField.y - 1][move.startField.x].state = player;
+							break;
+
+                            case 4:
+                                if(move.startField.x == move.endField.x) // left
+                                    _fields[move.startField.y - 1][move.startField.x].state = player;
+                                else
+                                    _fields[move.startField.y - 1][move.startField.x + 1].state = player;
+							break;
+
+                            default:
+							break;
+                        }
+					}
+					else if(move.startField.y > move.endField.y) // pull down
+					{
+						switch(move.startField.y)
+                        {
+                            case 4:
+                            case 5:
+                                if(move.startField.x < move.endField.x) // left
+                                    _fields[move.startField.y + 1][move.startField.x - 1].state = player;
+                                else
+                                    _fields[move.startField.y + 1][move.startField.x].state = player;
+							break;
+
+                            case 3:
+                                if(move.startField.x == 0 && move.endField.x == 0)
+                                    _fields[move.startField.y + 1][move.startField.x].state = player;
+                                else if(move.startField.x == 6 && move.endField.x == 7)
+                                    _fields[move.startField.y + 1][move.startField.x - 1].state = player;
+                                else if(move.startField.x == move.endField.x) // left
+                                {
+                                    if(move.startField.x != 7)
+                                        _fields[move.startField.y + 1][move.startField.x - 1].state = player;
+                                    else
+                                        _fields[move.startField.y + 1][move.startField.x].state = player;
+                                }
+                                else
+                                {
+                                    if(move.startField.x != 7)
+                                        _fields[move.startField.y + 1][move.startField.x].state = player;
+                                    else
+                                        _fields[move.startField.y + 1][move.startField.x - 1].state = player;
+                                }
+							break;
+
+                            case 2:
+                                if(move.startField.x == move.endField.x) // left
+                                    _fields[move.startField.y + 1][move.startField.x].state = player;
+                                else
+                                    _fields[move.startField.y + 1][move.startField.x + 1].state = player;
+							break;
+
+                            default:
+							break;
+                        }
+					}
+					else
+					{
+						if(move.startField.x < move.endField.x) // left
+                            _fields[move.startField.y][move.startField.x - 1].state = player;
+                        else
+                            _fields[move.startField.y][move.startField.x + 1].state = player;
+					}
 				}
 
 				return true;

@@ -42,7 +42,7 @@ Allowed values:
 
 
 <dl>
-<dt><span class="decl"><a name="Move.this"></a>this(MoveType <span class="funcparam">moveType</span>, Field <span class="funcparam">start</span>, Field <span class="funcparam">end</span>, Field <span class="funcparam">blockStart</span> = null, Field <span class="funcparam">blockEnd</span> = null);
+<dt><span class="decl"><a name="Move.this"></a>this(MoveType <span class="funcparam">moveType</span>, Field <span class="funcparam">start</span>, Field <span class="funcparam">end</span>);
 </span></dt>
 <dd>Creates a new move.
 <br><br>
@@ -59,14 +59,6 @@ Allowed values:
 <td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">end</span></td>
 
 <td>Ending field for player's pawn.</td></tr>
-<tr>
-<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">blockStart</span></td>
-
-<td>[OPTIONAL] Starting field for block if block is moved.</td></tr>
-<tr>
-<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">blockStart</span></td>
-
-<td>[OPTIONAL] Ending field for block if block is moved.</td></tr>
 </table><br>
 
 </dd>
@@ -92,20 +84,6 @@ Allowed values:
 <dd>Gets ending field for a pawn.<br><br>
 
 </dd>
-
-<dt><span class="decl"><a name="Move.blockStartField"></a>@property ref Field 
-<span class="currsymbol">blockStartField</span>();
-</span></dt>
-<dd>Gets starting field for a block. Null if move doesn't involve blocks.<br><br>
-
-</dd>
-
-<dt><span class="decl"><a name="Move.blockEndField"></a>@property ref Field 
-<span class="currsymbol">blockEndField</span>();
-</span></dt>
-<dd>Gets ending field for a block. Null if move doesn't involve blocks.<br><br>
-
-</dd>
 </dl>
 </dd>
 </dl>
@@ -116,7 +94,7 @@ Allowed values:
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Wed Feb 11 16:06:54 2015
+            on Fri Feb 13 02:57:30 2015
 
         </td>-->
 <span id="packages" class="emptytag">
