@@ -120,6 +120,12 @@ class Board
 			return new Board(this);
 		}
 
+		/**
+		* Checks if move is valid.
+		* Params:
+		*	move =			Move to check.
+		* Returns: true if move is valid, false otherwise.
+		*/
 		bool checkMove(ref Move move)
 		{
 			if(move.startField.checkNeighbour(move.endField))
