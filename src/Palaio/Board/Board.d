@@ -134,22 +134,286 @@ class Board
 				{
 					if(_fields[move.endField.y][move.endField.x].state == FieldState.Block)
 					{
-						// do the actual check
+						if(move.startField.y > move.endField.y) // push up
+						{
+							switch(move.startField.y)
+                            {
+                                case 2:
+                                case 3:
+                                    if(move.endField.x < move.startField.x && move.startField.x > 1) // we push it up-left
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x == move.startField.x && move.startField.x < _fields[move.startField.y - 1].length - 1) // we push it up-right
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
 
-						return true;
+                                case 4:
+                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == 6 && move.endField.x == 7)
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == move.endField.x) //up-left
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x > move.startField.x) // up-right
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
+
+                                case 5:
+                                case 6:
+                                    if(move.startField.x == move.endField.x)
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else
+                                    {
+                                        if(_fields[move.endField.y - 1][move.endField.x + 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
+
+                                default:
+								break;
+                            }
+						}
+						else if(move.startField.y > move.endField.y) // push down
+						{
+							switch(move.endField.y) // there's a lot of strange calculations based on our irregular hexagonal board. trust me, it's working
+                            {
+                                case 3:
+                                case 4:
+                                    if(move.endField.x < move.startField.x && move.startField.x > 1) // we push it down-left
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x >= move.startField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // we push it up-right
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+									break;
+
+                                case 2:
+                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == 6 && move.endField.x == 7)
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == move.endField.x) //down-left
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x > move.startField.x) // down-right
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+									break;
+
+                                case 0:
+                                case 1:
+                                    if(move.startField.x == move.endField.x) // down-left
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else // down-right
+                                    {
+                                        if(_fields[move.endField.y + 1][move.endField.x + 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+									break;
+
+                                default:
+									break;
+                            }
+						}
+						else
+						{
+							if(move.endField.x < move.startField.x) // push left
+                            {
+                                if(move.endField.x - 1 < 0)
+                                    return false;
+
+                                if(_fields[move.endField.y][move.endField.x - 1].state == FieldState.Empty)
+                                    return true;
+                            }
+                            else // push right
+                            {
+                                if(move.endField.x + 1 >= _fields[move.endField.y].length)
+                                    return false;
+
+                                if(_fields[move.endField.y][move.endField.x + 1].state == FieldState.Empty)
+                                    return true;
+                            }
+						}
 					}
 				}
-				else
+				else // pull
 				{
 					if(_fields[move.endField.y][move.endField.x].state == FieldState.Block)
 					{
-						// do the actual check
+						if(move.startField.y < move.endField.y) // pull up
+						{
+							switch(move.startField.y)
+							{
+                                case 1:
+                                case 2:
+                                    if(move.endField.x > move.startField.x && move.startField.x > 0) // pull up-left
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y].length - 1) // pull up-right
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
 
-						return true;
+                                case 3:
+                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == 7 && move.endField.x == 6)
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == move.endField.x) // pull up-left
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x < move.startField.x)
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
+
+                                case 4:
+                                    if(move.startField.x == move.endField.x && move.startField.x < 6) // pull up-left
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x < move.startField.x && move.startField.x > 0) // pull up-right
+                                    {
+                                        if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
+
+                                default:
+								break;
+							}
+						}
+						else if(move.startField.y > move.endField.y) // pull down
+						{
+							switch(move.startField.y)
+							{
+                                case 4:
+                                case 5:
+                                    if(move.endField.x > move.startField.x && move.startField.x > 0) // pull down-left
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // pull down-right
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
+
+                                case 3:
+                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.startField.x == 7 && move.endField.x == 6)
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x == move.startField.x) // pull down-left
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x < move.startField.x)
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+								break;
+
+                                case 2:
+                                    if(move.startField.x == move.endField.x && move.startField.x < 6) // pull down-left
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+                                            return true;
+                                    }
+                                    else if(move.endField.x < move.startField.x && move.startField.x > 0) // pull down-right
+                                    {
+                                        if(_fields[move.startField.y + 1][move.startField.x + 1].state == FieldState.Empty)
+                                            return true;
+                                    }
+									break;
+
+                                default:
+								break;
+							}
+						}
+						else
+						{
+							if(move.endField.x > move.startField.x) // pull left
+                            {
+                                if(move.startField.x - 1 < 0)
+                                    return false;
+
+                                if(_fields[move.startField.y][move.startField.x - 1].state == FieldState.Empty)
+                                    return true;
+                            }
+                            else // pull right
+                            {
+                                if(move.startField.x + 1 > _fields[move.startField.y].length - 1)
+                                    return false;
+
+                                if(_fields[move.startField.y][move.startField.x + 1].state == FieldState.Empty)
+                                    return true;
+                            }
+						}
 					}
 				}
-
-				return true;
 			}
 
 			return false;
