@@ -16,9 +16,9 @@ class Input
 	private:
 		static Input _instance = null;
 		static Vector!SDL_Event _eventQueue;
-		Thread _inputThread;
-		Mutex _inputMutex;
-
+		static Mutex _inputMutex;
+		static Thread _inputThread;
+		
 		this()
 		{
 			thread_init();
@@ -48,7 +48,7 @@ class Input
 
 			while(true)
 			{
-				synchronized(_instance.mutex)
+				synchronized(_inputMutex)
 				{
 					if(SDL_PollEvent(&e))
 						_eventQueue.pushBack(e);
