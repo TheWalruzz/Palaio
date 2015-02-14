@@ -15,8 +15,8 @@ class Input
 {
 	private:
 		static Input _instance = null;
+		static Vector!SDL_Event _eventQueue;
 		Thread _inputThread;
-		Vector!SDL_Event _eventQueue;
 		Mutex _inputMutex;
 
 		this()
@@ -51,13 +51,13 @@ class Input
 				synchronized(_instance.mutex)
 				{
 					if(SDL_PollEvent(&e))
-						_instance.pushEvent(e);
+						_eventQueue.pushBack(e);
 				}
 			}
 		}
 
 		/**
-		* Pushes an input event to the event queue.
+		* Pushes an event to the event queue.
 		* Params:
 		*	event =			Event to push.
 		*/
@@ -99,6 +99,15 @@ class Input
 		void unpauseInput()
 		{
 			_inputMutex.unlock();
+		}
+
+		/// Clears the event queue.
+		void clearQueue()
+		{
+			synchronized(_inputMutex)
+			{
+				_eventQueue.clear();
+			}
 		}
 
 		/**
