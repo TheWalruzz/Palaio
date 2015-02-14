@@ -28,6 +28,11 @@ class Input
 			_inputThread.start();
 		}
 
+		~this()
+		{
+			_inputThread.join();
+		}
+
 	public:
 		/**
 		* Gets the singleton instance of object.
@@ -45,13 +50,19 @@ class Input
 		static void handler()
 		{
 			SDL_Event e;
+			bool flag = true;
 
-			while(true)
+			while(flag)
 			{
 				synchronized(_inputMutex)
 				{
 					if(SDL_PollEvent(&e))
+					{
 						_eventQueue.pushBack(e);
+
+						if(e.type == SDL_QUIT)
+							flag = false;
+					}
 				}
 			}
 		}
