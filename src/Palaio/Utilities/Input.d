@@ -1,4 +1,4 @@
-module Palaio.Input;
+module Palaio.Utilities.Input;
 
 import core.thread;
 import core.sync.mutex;

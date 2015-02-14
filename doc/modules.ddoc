@@ -2,6 +2,7 @@ MODULES =
     $(MODULE Palaio.Board.Board) 
     $(MODULE Palaio.Board.Field) 
     $(MODULE Palaio.Board.Move) 
+    $(MODULE Palaio.Utilities.Input) 
     $(MODULE Palaio.Utilities.Log) 
     $(MODULE Palaio.Utilities.Node) 
     $(MODULE Palaio.Utilities.Screen) 
@@ -12,5 +13,4 @@ MODULES =
     $(MODULE Palaio.GameDisplay) 
     $(MODULE Palaio.GameSinglePlayer) 
     $(MODULE Palaio.GameTwoPlayers) 
-    $(MODULE Palaio.Input) 
     $(MODULE .Main) 
