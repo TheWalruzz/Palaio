@@ -26,7 +26,7 @@
 <dt><span class="decl"><a name="Input"></a>class 
 <span class="currsymbol">Input</span>;
 </span></dt>
-<dd>Singleton class implementing the mouse input<br><br>
+<dd>Singleton class implementing the mouse input.<br><br>
 
 
 <dl>
@@ -43,7 +43,7 @@ Reference to the object.<br><br>
 <dt><span class="decl"><a name="Input.handler"></a>static void 
 <span class="currsymbol">handler</span>();
 </span></dt>
-<dd>Function used for threaded polling of input events.<br><br>
+<dd>Method used for polling of input events in a separate thread.<br><br>
 
 </dd>
 
@@ -67,7 +67,7 @@ Reference to the object.<br><br>
 <dd>Pops an event from the front of the event queue.
 <br><br>
 <b>Returns:</b><br>
-Popped event or <b>null</b> if queue is empty.<br><br>
+Popped event or empty event with field 'type' equal to 0 if queue was empty.<br><br>
 
 </dd>
 
@@ -108,7 +108,7 @@ Reference to
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Sat Feb 14 02:55:43 2015
+            on Sat Feb 14 03:15:36 2015
 
         </td>-->
 <span id="packages" class="emptytag">

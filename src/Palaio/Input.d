@@ -10,7 +10,7 @@ import Derelict.SDL2.sdl;
 pragma(lib, "DerelictSDL2.lib");
 pragma(lib, "DerelictUtil.lib");
 
-/// Singleton class implementing the mouse input
+/// Singleton class implementing the mouse input.
 class Input
 {
 	private:
@@ -24,7 +24,7 @@ class Input
 			thread_init();
 			_eventQueue = new Vector!SDL_Event();
 			_inputMutex = new Mutex();
-			_inputThread = new Thread(&handler);
+			_inputThread = new Thread(&Input.handler);
 			_inputThread.start();
 		}
 
@@ -41,7 +41,7 @@ class Input
 			return _instance;
 		}
 
-		/// Function used for threaded polling of input events.
+		/// Method used for polling of input events in a separate thread.
 		static void handler()
 		{
 			SDL_Event e;
