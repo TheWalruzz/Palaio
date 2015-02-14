@@ -23,7 +23,7 @@ class Board
             _fields[5].length = 6;
             _fields[6].length = 5;
 
-			// initialize field objects, so we they can reference themselves later
+			// initialize field objects, so they can reference themselves later
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < _fields[i].length; j++)
 					_fields[i][j] = new Field(j, i);
@@ -196,6 +196,7 @@ class Board
 								break;
 
                                 default:
+									return false;
 								break;
                             }
 						}
@@ -215,7 +216,7 @@ class Board
                                         if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
                                             return true;
                                     }
-									break;
+								break;
 
                                 case 2:
                                     if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
@@ -238,7 +239,7 @@ class Board
                                         if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
                                             return true;
                                     }
-									break;
+								break;
 
                                 case 0:
                                 case 1:
@@ -252,10 +253,11 @@ class Board
                                         if(_fields[move.endField.y + 1][move.endField.x + 1].state == FieldState.Empty)
                                             return true;
                                     }
-									break;
+								break;
 
                                 default:
-									break;
+									return false;
+								break;
                             }
 						}
 						else
@@ -338,6 +340,7 @@ class Board
 								break;
 
                                 default:
+									return false;
 								break;
 							}
 						}
@@ -393,9 +396,10 @@ class Board
                                         if(_fields[move.startField.y + 1][move.startField.x + 1].state == FieldState.Empty)
                                             return true;
                                     }
-									break;
+								break;
 
                                 default:
+									return false;
 								break;
 							}
 						}
@@ -429,7 +433,7 @@ class Board
 		* Applies a move to the board if that move is valid. 
 		* Params:
 		*	move =			Move to be applied.
-		* Returns: True if move was correctly applied, false otherwise.
+		* Returns: true if move was correctly applied, false otherwise.
 		*/
 		bool doMove(ref Move move)
 		{
@@ -454,7 +458,7 @@ class Board
 									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
                                 else // right
                                     _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
-								break;
+							break;
 
                             case 4:
 								// ifs are separated to ensure that expressions with equal signs are checked first
@@ -466,7 +470,7 @@ class Board
                                     _fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
                                 else // right
                                     _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
-								break;
+							break;
 
                             case 5:
                             case 6:
@@ -474,10 +478,11 @@ class Board
                                     _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
                                 else // right
                                     _fields[move.endField.y - 1][move.endField.x + 1].state = FieldState.Block;
-								break;
+							break;
 
                             default:
-								break;
+								return false;
+							break;
 						}
 					else if(move.endField.y > move.startField.y) // push down
 						switch(move.startField.y)
@@ -510,6 +515,7 @@ class Board
 							break;
 
                             default:
+								return false;
 							break;
 						}
 					else

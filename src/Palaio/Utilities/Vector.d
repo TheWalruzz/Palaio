@@ -141,12 +141,13 @@ class Vector(T)
 			std.algorithm.sort!(comp)(_container);
 		}
 
-		
-		/// Sorts the container in ascending order using the default "<" implementation for T type.
+		/*
+		/ // Sorts the container in ascending order using the default "<" implementation for T type.
+		// commented out until compiler stops bitching about no opCmp for SDL_Event in Palaio.Input.
 		void sort()
 		{
 			std.algorithm.sort(_container);
-		}
+		}*/
 
 		/// Gets the length of the container.
 		@property int length() { return _container.length; }
