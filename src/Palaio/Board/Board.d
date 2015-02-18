@@ -14,14 +14,14 @@ class Board
 		this()
 		{
 			// init dynamic, irregular two-dimensional array representing the board
-            _fields.length = 7;
-            _fields[0].length = 5;
-            _fields[1].length = 6;
-            _fields[2].length = 7;
-            _fields[3].length = 8;
-            _fields[4].length = 7;
-            _fields[5].length = 6;
-            _fields[6].length = 5;
+			_fields.length = 7;
+			_fields[0].length = 5;
+			_fields[1].length = 6;
+			_fields[2].length = 7;
+			_fields[3].length = 8;
+			_fields[4].length = 7;
+			_fields[5].length = 6;
+			_fields[6].length = 5;
 
 			// initialize field objects, so they can reference themselves later
 			for(int i = 0; i < 7; i++)
@@ -143,141 +143,141 @@ class Board
 						if(move.startField.y > move.endField.y) // push up
 						{
 							switch(move.startField.y)
-                            {
-                                case 2:
-                                case 3:
-                                    if(move.endField.x < move.startField.x && move.startField.x > 1) // we push it up-left
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x == move.startField.x && move.startField.x < _fields[move.startField.y - 1].length - 1) // we push it up-right
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+							{
+								case 2:
+								case 3:
+									if(move.endField.x < move.startField.x && move.startField.x > 1) // we push it up-left
+									{
+										if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x == move.startField.x && move.startField.x < _fields[move.startField.y - 1].length - 1) // we push it up-right
+									{
+										if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 4:
-                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == 6 && move.endField.x == 7)
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == move.endField.x) //up-left
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x > move.startField.x) // up-right
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 4:
+									if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
+									{
+										if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == 6 && move.endField.x == 7)
+									{
+										if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == move.endField.x) //up-left
+									{
+										if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x > move.startField.x) // up-right
+									{
+										if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 5:
-                                case 6:
-                                    if(move.startField.x == move.endField.x)
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else
-                                    {
-                                        if(_fields[move.endField.y - 1][move.endField.x + 1].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 5:
+								case 6:
+									if(move.startField.x == move.endField.x)
+									{
+										if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
+									else
+									{
+										if(_fields[move.endField.y - 1][move.endField.x + 1].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                default:
+								default:
 									return false;
 								break;
-                            }
+							}
 						}
 						else if(move.startField.y > move.endField.y) // push down
 						{
 							switch(move.endField.y) // there's a lot of strange calculations based on our irregular hexagonal board. trust me, it's working
-                            {
-                                case 3:
-                                case 4:
-                                    if(move.endField.x < move.startField.x && move.startField.x > 1) // we push it down-left
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x >= move.startField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // we push it up-right
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+							{
+								case 3:
+								case 4:
+									if(move.endField.x < move.startField.x && move.startField.x > 1) // we push it down-left
+									{
+										if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x >= move.startField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // we push it up-right
+									{
+										if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 2:
-                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == 6 && move.endField.x == 7)
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == move.endField.x) //down-left
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x > move.startField.x) // down-right
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 2:
+									if(move.startField.x == 0 && move.endField.x == 0) // special cases of push
+									{
+										if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == 6 && move.endField.x == 7)
+									{
+										if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == move.endField.x) //down-left
+									{
+										if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x > move.startField.x) // down-right
+									{
+										if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 0:
-                                case 1:
-                                    if(move.startField.x == move.endField.x) // down-left
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else // down-right
-                                    {
-                                        if(_fields[move.endField.y + 1][move.endField.x + 1].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 0:
+								case 1:
+									if(move.startField.x == move.endField.x) // down-left
+									{
+										if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
+											return true;
+									}
+									else // down-right
+									{
+										if(_fields[move.endField.y + 1][move.endField.x + 1].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                default:
+								default:
 									return false;
 								break;
-                            }
+							}
 						}
 						else
 						{
 							if(move.endField.x < move.startField.x) // push left
-                            {
-                                if(move.endField.x - 1 < 0)
-                                    return false;
+							{
+								if(move.endField.x - 1 < 0)
+									return false;
 
-                                if(_fields[move.endField.y][move.endField.x - 1].state == FieldState.Empty)
-                                    return true;
-                            }
-                            else // push right
-                            {
-                                if(move.endField.x + 1 >= _fields[move.endField.y].length)
-                                    return false;
+								if(_fields[move.endField.y][move.endField.x - 1].state == FieldState.Empty)
+									return true;
+							}
+							else // push right
+							{
+								if(move.endField.x + 1 >= _fields[move.endField.y].length)
+									return false;
 
-                                if(_fields[move.endField.y][move.endField.x + 1].state == FieldState.Empty)
-                                    return true;
-                            }
+								if(_fields[move.endField.y][move.endField.x + 1].state == FieldState.Empty)
+									return true;
+							}
 						}
 					}
 				}
@@ -289,57 +289,57 @@ class Board
 						{
 							switch(move.startField.y)
 							{
-                                case 1:
-                                case 2:
-                                    if(move.endField.x > move.startField.x && move.startField.x > 0) // pull up-left
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y].length - 1) // pull up-right
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 1:
+								case 2:
+									if(move.endField.x > move.startField.x && move.startField.x > 0) // pull up-left
+									{
+										if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y].length - 1) // pull up-right
+									{
+										if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 3:
-                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == 7 && move.endField.x == 6)
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == move.endField.x) // pull up-left
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x < move.startField.x)
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 3:
+									if(move.startField.x == 0 && move.endField.x == 0) // special cases
+									{
+										if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == 7 && move.endField.x == 6)
+									{
+										if(_fields[move.startField.y - 1][move.startField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == move.endField.x) // pull up-left
+									{
+										if(_fields[move.startField.y - 1][move.startField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x < move.startField.x)
+									{
+										if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 4:
-                                    if(move.startField.x == move.endField.x && move.startField.x < 6) // pull up-left
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x < move.startField.x && move.startField.x > 0) // pull up-right
-                                    {
-                                        if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 4:
+									if(move.startField.x == move.endField.x && move.startField.x < 6) // pull up-left
+									{
+										if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x < move.startField.x && move.startField.x > 0) // pull up-right
+									{
+										if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                default:
+								default:
 									return false;
 								break;
 							}
@@ -348,57 +348,57 @@ class Board
 						{
 							switch(move.startField.y)
 							{
-                                case 4:
-                                case 5:
-                                    if(move.endField.x > move.startField.x && move.startField.x > 0) // pull down-left
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // pull down-right
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 4:
+								case 5:
+									if(move.endField.x > move.startField.x && move.startField.x > 0) // pull down-left
+									{
+										if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // pull down-right
+									{
+										if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 3:
-                                    if(move.startField.x == 0 && move.endField.x == 0) // special cases
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.startField.x == 7 && move.endField.x == 6)
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x == move.startField.x) // pull down-left
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x < move.startField.x)
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 3:
+									if(move.startField.x == 0 && move.endField.x == 0) // special cases
+									{
+										if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.startField.x == 7 && move.endField.x == 6)
+									{
+										if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x == move.startField.x) // pull down-left
+									{
+										if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x < move.startField.x)
+									{
+										if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                case 2:
-                                    if(move.startField.x == move.endField.x && move.startField.x < 6) // pull down-left
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
-                                            return true;
-                                    }
-                                    else if(move.endField.x < move.startField.x && move.startField.x > 0) // pull down-right
-                                    {
-                                        if(_fields[move.startField.y + 1][move.startField.x + 1].state == FieldState.Empty)
-                                            return true;
-                                    }
+								case 2:
+									if(move.startField.x == move.endField.x && move.startField.x < 6) // pull down-left
+									{
+										if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
+											return true;
+									}
+									else if(move.endField.x < move.startField.x && move.startField.x > 0) // pull down-right
+									{
+										if(_fields[move.startField.y + 1][move.startField.x + 1].state == FieldState.Empty)
+											return true;
+									}
 								break;
 
-                                default:
+								default:
 									return false;
 								break;
 							}
@@ -406,21 +406,21 @@ class Board
 						else
 						{
 							if(move.endField.x > move.startField.x) // pull left
-                            {
-                                if(move.startField.x - 1 < 0)
-                                    return false;
+							{
+								if(move.startField.x - 1 < 0)
+									return false;
 
-                                if(_fields[move.startField.y][move.startField.x - 1].state == FieldState.Empty)
-                                    return true;
-                            }
-                            else // pull right
-                            {
-                                if(move.startField.x + 1 > _fields[move.startField.y].length - 1)
-                                    return false;
+								if(_fields[move.startField.y][move.startField.x - 1].state == FieldState.Empty)
+									return true;
+							}
+							else // pull right
+							{
+								if(move.startField.x + 1 > _fields[move.startField.y].length - 1)
+									return false;
 
-                                if(_fields[move.startField.y][move.startField.x + 1].state == FieldState.Empty)
-                                    return true;
-                            }
+								if(_fields[move.startField.y][move.startField.x + 1].state == FieldState.Empty)
+									return true;
+							}
 						}
 					}
 				}
@@ -453,34 +453,34 @@ class Board
 						switch(move.startField.y)
 						{
 							case 2:
-                            case 3:
-                                if(move.endField.x < move.startField.x) // left
+							case 3:
+								if(move.endField.x < move.startField.x) // left
 									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
-                                else // right
-                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+								else // right
+									_fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
 							break;
 
-                            case 4:
+							case 4:
 								// ifs are separated to ensure that expressions with equal signs are checked first
-                                if(move.startField.x == 0 && move.endField.x == 0) // left edge - special rules apply
-                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
-                                else if(move.startField.x == 6 && move.endField.x == 7) // right edge - special rules apply
-                                    _fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
-                                else if(move.startField.x == move.endField.x) // left
-                                    _fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
-                                else // right
-                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+								if(move.startField.x == 0 && move.endField.x == 0) // left edge - special rules apply
+									_fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+								else if(move.startField.x == 6 && move.endField.x == 7) // right edge - special rules apply
+									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
+								else if(move.startField.x == move.endField.x) // left
+									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
+								else // right
+									_fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
 							break;
 
-                            case 5:
-                            case 6:
-                                if(move.startField.x == move.endField.x) // left
-                                    _fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
-                                else // right
-                                    _fields[move.endField.y - 1][move.endField.x + 1].state = FieldState.Block;
+							case 5:
+							case 6:
+								if(move.startField.x == move.endField.x) // left
+									_fields[move.endField.y - 1][move.endField.x].state = FieldState.Block;
+								else // right
+									_fields[move.endField.y - 1][move.endField.x + 1].state = FieldState.Block;
 							break;
 
-                            default:
+							default:
 								return false;
 							break;
 						}
@@ -488,42 +488,42 @@ class Board
 						switch(move.startField.y)
 						{
 							case 3:
-                            case 4:
-                                if(move.startField.x > move.endField.x) // left
-                                    _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
-                                else // right
-                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+							case 4:
+								if(move.startField.x > move.endField.x) // left
+									_fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
+								else // right
+									_fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
 							break;
 
-                            case 2:
-                                if(move.startField.x == 0 &&  move.endField.x == 0)
-                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
-                                else if(move.startField.x == 6 && move.endField.x == 7)
-                                     _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
-                                else if(move.startField.x == move.endField.x) // left
-                                    _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
-                                else // right
-                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+							case 2:
+								if(move.startField.x == 0 &&  move.endField.x == 0)
+									_fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+								else if(move.startField.x == 6 && move.endField.x == 7)
+									 _fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
+								else if(move.startField.x == move.endField.x) // left
+									_fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
+								else // right
+									_fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
 							break;
 
-                            case 1:
-                            case 0:
-                                if(move.startField.x == move.endField.x) // left
-                                    _fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
-                                else // right
-                                    _fields[move.endField.y + 1][move.endField.x + 1].state = FieldState.Block;
+							case 1:
+							case 0:
+								if(move.startField.x == move.endField.x) // left
+									_fields[move.endField.y + 1][move.endField.x].state = FieldState.Block;
+								else // right
+									_fields[move.endField.y + 1][move.endField.x + 1].state = FieldState.Block;
 							break;
 
-                            default:
+							default:
 								return false;
 							break;
 						}
 					else
 					{
 						if(move.startField.x < move.endField.x) // push right
-                            _fields[move.endField.y][move.endField.x + 1].state = FieldState.Block;
-                        else if(move.startField.x >  move.endField.x)
-                            _fields[move.endField.y][move.endField.x - 1].state = FieldState.Block;
+							_fields[move.endField.y][move.endField.x + 1].state = FieldState.Block;
+						else if(move.startField.x >  move.endField.x)
+							_fields[move.endField.y][move.endField.x - 1].state = FieldState.Block;
 					}
 				}
 				else if(move.moveType == MoveType.Pull)
@@ -534,87 +534,87 @@ class Board
 					if(move.startField.y < move.endField.y) // pull up
 					{
 						switch(move.startField.y)
-                        {
-                            case 1:
-                            case 2:
-                                if(move.startField.x < move.endField.x) // left
+						{
+							case 1:
+							case 2:
+								if(move.startField.x < move.endField.x) // left
 									_fields[move.startField.y - 1][move.startField.x - 1].state = player;
-                                else
-                                    _fields[move.startField.y - 1][move.startField.x].state = player;
+								else
+									_fields[move.startField.y - 1][move.startField.x].state = player;
 							break;
 
-                            case 3:
-                                if(move.startField.x == 0 && move.endField.x == 0)
-                                    _fields[move.startField.y - 1][move.startField.x].state = player;
-                                else if(move.startField.x == 7 && move.endField.x == 6)
-                                    _fields[move.startField.y - 1][move.startField.x - 1].state = player;
-                                else if(move.startField.x == move.endField.x) // left
-                                    _fields[move.startField.y - 1][move.startField.x - 1].state = player;
-                                else
-                                    _fields[move.startField.y - 1][move.startField.x].state = player;
+							case 3:
+								if(move.startField.x == 0 && move.endField.x == 0)
+									_fields[move.startField.y - 1][move.startField.x].state = player;
+								else if(move.startField.x == 7 && move.endField.x == 6)
+									_fields[move.startField.y - 1][move.startField.x - 1].state = player;
+								else if(move.startField.x == move.endField.x) // left
+									_fields[move.startField.y - 1][move.startField.x - 1].state = player;
+								else
+									_fields[move.startField.y - 1][move.startField.x].state = player;
 							break;
 
-                            case 4:
-                                if(move.startField.x == move.endField.x) // left
-                                    _fields[move.startField.y - 1][move.startField.x].state = player;
-                                else
-                                    _fields[move.startField.y - 1][move.startField.x + 1].state = player;
+							case 4:
+								if(move.startField.x == move.endField.x) // left
+									_fields[move.startField.y - 1][move.startField.x].state = player;
+								else
+									_fields[move.startField.y - 1][move.startField.x + 1].state = player;
 							break;
 
-                            default:
+							default:
 							break;
-                        }
+						}
 					}
 					else if(move.startField.y > move.endField.y) // pull down
 					{
 						switch(move.startField.y)
-                        {
-                            case 4:
-                            case 5:
-                                if(move.startField.x < move.endField.x) // left
-                                    _fields[move.startField.y + 1][move.startField.x - 1].state = player;
-                                else
-                                    _fields[move.startField.y + 1][move.startField.x].state = player;
+						{
+							case 4:
+							case 5:
+								if(move.startField.x < move.endField.x) // left
+									_fields[move.startField.y + 1][move.startField.x - 1].state = player;
+								else
+									_fields[move.startField.y + 1][move.startField.x].state = player;
 							break;
 
-                            case 3:
-                                if(move.startField.x == 0 && move.endField.x == 0)
-                                    _fields[move.startField.y + 1][move.startField.x].state = player;
-                                else if(move.startField.x == 6 && move.endField.x == 7)
-                                    _fields[move.startField.y + 1][move.startField.x - 1].state = player;
-                                else if(move.startField.x == move.endField.x) // left
-                                {
-                                    if(move.startField.x != 7)
-                                        _fields[move.startField.y + 1][move.startField.x - 1].state = player;
-                                    else
-                                        _fields[move.startField.y + 1][move.startField.x].state = player;
-                                }
-                                else
-                                {
-                                    if(move.startField.x != 7)
-                                        _fields[move.startField.y + 1][move.startField.x].state = player;
-                                    else
-                                        _fields[move.startField.y + 1][move.startField.x - 1].state = player;
-                                }
+							case 3:
+								if(move.startField.x == 0 && move.endField.x == 0)
+									_fields[move.startField.y + 1][move.startField.x].state = player;
+								else if(move.startField.x == 6 && move.endField.x == 7)
+									_fields[move.startField.y + 1][move.startField.x - 1].state = player;
+								else if(move.startField.x == move.endField.x) // left
+								{
+									if(move.startField.x != 7)
+										_fields[move.startField.y + 1][move.startField.x - 1].state = player;
+									else
+										_fields[move.startField.y + 1][move.startField.x].state = player;
+								}
+								else
+								{
+									if(move.startField.x != 7)
+										_fields[move.startField.y + 1][move.startField.x].state = player;
+									else
+										_fields[move.startField.y + 1][move.startField.x - 1].state = player;
+								}
 							break;
 
-                            case 2:
-                                if(move.startField.x == move.endField.x) // left
-                                    _fields[move.startField.y + 1][move.startField.x].state = player;
-                                else
-                                    _fields[move.startField.y + 1][move.startField.x + 1].state = player;
+							case 2:
+								if(move.startField.x == move.endField.x) // left
+									_fields[move.startField.y + 1][move.startField.x].state = player;
+								else
+									_fields[move.startField.y + 1][move.startField.x + 1].state = player;
 							break;
 
-                            default:
+							default:
 							break;
-                        }
+						}
 					}
 					else
 					{
 						if(move.startField.x < move.endField.x) // left
-                            _fields[move.startField.y][move.startField.x - 1].state = player;
-                        else
-                            _fields[move.startField.y][move.startField.x + 1].state = player;
+							_fields[move.startField.y][move.startField.x - 1].state = player;
+						else
+							_fields[move.startField.y][move.startField.x + 1].state = player;
 					}
 				}
 
@@ -658,5 +658,16 @@ class Board
 		void setFieldState(int x, int y, FieldState state)
 		{
 			_fields[y][x].state = state;
+		}
+
+		/**
+		* Gets the size of the specified row.
+		* Params:
+		*	row =			Number of row.
+		* Returns: Size of row.
+		*/
+		int getRowLength(int row)
+		{
+			return _fields[row].length;
 		}
 }
