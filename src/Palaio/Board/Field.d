@@ -74,6 +74,26 @@ class Field
 			return searchNeighbour(neighbour) > -1;
 		}
 
+		alias opEquals = Object.opEquals;
+
+		/**
+		* Overloaded == operator for fields. Checks if both fields' coordinates are identical.
+		* Returns: true if coordinates of both fields are identical, false otherwise.
+		*/
+		bool opEquals(ref Field b)
+		{
+			if(this is b)
+				return true;
+
+			if(this is null || b is null)
+				return false;
+
+			if(this._x == b.x && this._y == b.y)
+				return true;
+
+			return false;
+		}
+
 		@property
 		{
 			/// Sets the state of a field.

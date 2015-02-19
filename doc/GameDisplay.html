@@ -23,10 +23,21 @@
 <br>
 
 <dl>
+<dt><span class="decl"><a name="BoardArrangement"></a>enum 
+<span class="currsymbol">BoardArrangement</span>: int;
+</span></dt>
+<dd>Type to tell if board should be rendered normally (i.e. Yellow player on the upper half of the board) or reversed.
+<br><br>
+Allowed values: 
+<span class="currsymbol">BoardArrangement</span>.Normal, 
+<span class="currsymbol">BoardArrangement</span>.Reversed.<br><br>
+
+</dd>
+
 <dt><span class="decl"><a name="GameDisplay"></a>class 
 <span class="currsymbol">GameDisplay</span>;
 </span></dt>
-<dd>Class implementing display of everything game-related.<br><br>
+<dd>Class implementing the on-screen display of everything game-related.<br><br>
 
 
 <dl>
@@ -36,8 +47,8 @@
 
 </dd>
 
-<dt><span class="decl"><a name="GameDisplay.updateBoard"></a>void 
-<span class="currsymbol">updateBoard</span>(Board <span class="funcparam">board</span>);
+<dt><span class="decl"><a name="GameDisplay.updateScreen"></a>void 
+<span class="currsymbol">updateScreen</span>(Board <span class="funcparam">board</span>, BoardArrangement <span class="funcparam">ba</span> = BoardArrangement.Normal, Field <span class="funcparam">highlighted</span> = null);
 </span></dt>
 <dd>Updates the <span class="funcparam">board</span> on the screen.
 <br><br>
@@ -46,6 +57,14 @@
 <td nowrap valign="top" style="padding-right: 8px">Board <span class="funcparam">board</span></td>
 
 <td>Board to be rendered.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">BoardArrangement <span class="funcparam">ba</span></td>
+
+<td>Board arrangement.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">Field <span class="funcparam">highlighted</span></td>
+
+<td>Field that should be <span class="funcparam">highlighted</span>.</td></tr>
 </table><br>
 
 </dd>
@@ -79,7 +98,7 @@ Clicked field if ok, <b>null</b> if clicked outside of the board.<br><br>
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Wed Feb 18 02:18:06 2015
+            on Thu Feb 19 16:34:10 2015
 
         </td>-->
 <span id="packages" class="emptytag">
