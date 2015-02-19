@@ -50,6 +50,18 @@ class GameDisplay
 			_pawnDimW = cast(int) (_pawnDimH * (ceil(sqrt(3.0) / 2)));
 		}
 
+		/// Deletes the object.
+		~this()
+		{
+			SDL_DestroyTexture(_textures["board"]);
+			SDL_DestroyTexture(_textures["yellow"]);
+			SDL_DestroyTexture(_textures["yellow-hl"]);
+			SDL_DestroyTexture(_textures["green"]);
+			SDL_DestroyTexture(_textures["green-hl"]);
+			SDL_DestroyTexture(_textures["block"]);
+			SDL_DestroyTexture(_textures["block-hl"]);
+		}
+
 		/**
 		* Updates the board on the screen.
 		* Params:
@@ -73,7 +85,7 @@ class GameDisplay
 				// startx is calculated using a simple mathematical formula
 				startx = cast(int) ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW));
 
-				for(int j = 0; j < board.getRowLength(i); j++)
+				for(int j = 0; j < Board.rowLength[i]; j++)
 				{
 					if(board.getFieldState(j, i) != FieldState.Empty)
 					{
@@ -120,10 +132,12 @@ class GameDisplay
 						if(ba == BoardArrangement.Normal)
 							_s.addTexture(_textures[state], startx + (j * _pawnDimW), starty, _pawnDimW, _pawnDimH);
 						else
-							_s.addTexture(_textures[state], (_pawnDimW * board.getRowLength(i)) + startx - ((j+1) * _pawnDimW), cast(int) (_pawnDimH * 6.9) - starty, _pawnDimW, _pawnDimH); // cast(int) (_pawnDimH * 6.9) is a quick fix for now
+							_s.addTexture(_textures[state], (_pawnDimW * Board.rowLength[i]) + startx - ((j+1) * _pawnDimW), cast(int) (_pawnDimH * 6.9) - starty, _pawnDimW, _pawnDimH); // cast(int) (_pawnDimH * 6.9) is a quick fix for now
 					}
 				}
 			}
+
+			// TODO: add some text, e.g. for points
 
 			_s.renderAll();
 		}
@@ -133,10 +147,34 @@ class GameDisplay
 		* Params:
 		*	x =				X coordinate of a click.
 		*	y =				Y coordinate of a click.
-		* Returns: Clicked field if ok, null if clicked outside of the board.
+		*	bx =			X coordinate of the field to be returned as a parameter.
+		*	by =			Y coordinate to be returned as a parameter.
+		*	ba =			Board arrangement.
+		* Returns: true if clicked inside the board boundaries, false otherwise.
 		*/
-		Field getClickedField(int x, int y)
+		bool getClickedField(int x, int y, out int bx, out int by, BoardArrangement ba = BoardArrangement.Normal)
 		{
-			return null;
+			if(y >= cast(int) ((HEIGHT / 2) - (3.5 * _pawnDimH)) && y <= cast(int) ((HEIGHT / 2) + (1.5 * _pawnDimH)))
+			{
+				int i = cast(int) floor((y - ( (HEIGHT / 2) - (3.5 * _pawnDimH))) / _pawnDimH);
+
+				if(x >= cast(int) ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW)) && x <= cast(int) ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW) + (Board.rowLength[i]+1) * _pawnDimW))
+				{
+					if(ba == BoardArrangement.Normal)
+					{
+						bx = i;
+						by = cast(int) (floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW));
+					}
+					else
+					{
+						bx = 6 - i;
+						by = Board.rowLength[i] - 1 - cast(int) floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW);
+					}
+
+					return true;
+				}
+			}
+
+			return false;
 		}
 }

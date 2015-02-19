@@ -10,26 +10,24 @@ class Board
 		Field[][] _fields;
 		
 	public:
+		/// a simple cheatsheet, just to make sure we don't copy a whole board just to check row's length.
+		static const int rowLength[] = [5, 6, 7, 8, 7, 6, 5];
+
 		/// Creates new board object.
 		this()
 		{
 			// init dynamic, irregular two-dimensional array representing the board
 			_fields.length = 7;
-			_fields[0].length = 5;
-			_fields[1].length = 6;
-			_fields[2].length = 7;
-			_fields[3].length = 8;
-			_fields[4].length = 7;
-			_fields[5].length = 6;
-			_fields[6].length = 5;
+			for(int i = 0; i < 7; i++)
+				_fields[i].length = rowLength[i];
 
 			// initialize field objects, so they can reference themselves later
 			for(int i = 0; i < 7; i++)
-				for(int j = 0; j < _fields[i].length; j++)
+				for(int j = 0; j <  rowLength[i]; j++)
 					_fields[i][j] = new Field(j, i);
 
 			for(int i = 0; i < 7; i++)
-				for(int j = 0; j < _fields[i].length; j++)
+				for(int j = 0; j < rowLength[i]; j++)
 				{
 					// calculate connections
 
@@ -37,7 +35,7 @@ class Board
 					if(j > 0)
 						_fields[i][j].addNeighbour(_fields[i][j-1]);
 
-					if(j < _fields[i].length-1)
+					if(j <  rowLength[i]-1)
 						_fields[i][j].addNeighbour(_fields[i][j+1]);
 
 					// other connections
@@ -46,14 +44,14 @@ class Board
 						case 1:
 						case 2:
 						case 3:
-							if(j > 0 && j < _fields[i].length - 1) // is not at the beginning nor at the end of the row
+							if(j > 0 && j <  rowLength[i] - 1) // is not at the beginning nor at the end of the row
 							{
 								_fields[i][j].addNeighbour(_fields[i-1][j-1]);
 								_fields[i][j].addNeighbour(_fields[i-1][j]);
 							}
 							else if(j == 0)
 								_fields[i][j].addNeighbour(_fields[i-1][j]);
-							else if(j == _fields[i].length - 1)
+							else if(j ==  rowLength[i] - 1)
 								_fields[i][j].addNeighbour(_fields[i-1][j-1]);
 						break;
 
@@ -73,14 +71,14 @@ class Board
 						case 5:
 						case 4:
 						case 3:
-							if(j > 0 && j < _fields[i].length - 1) // is not at the beginning nor at the end of the row
+							if(j > 0 && j <  rowLength[i] - 1) // is not at the beginning nor at the end of the row
 							{
 								_fields[i][j].addNeighbour(_fields[i+1][j-1]);
 								_fields[i][j].addNeighbour(_fields[i+1][j]);
 							}
 							else if(j == 0)
 								_fields[i][j].addNeighbour(_fields[i+1][j]);
-							else if(j == _fields[i].length-1)
+							else if(j ==  rowLength[i]-1)
 								_fields[i][j].addNeighbour(_fields[i+1][j-1]);
 						break;
 
@@ -107,7 +105,7 @@ class Board
 			this();
 
 			for(int i = 0; i < 7; i++)
-				for(int j = 0; j < _fields[i].length; j++)
+				for(int j = 0; j < rowLength[i]; j++)
 					_fields[i][j].state = board.getFieldState(j, i);
 		}
 
@@ -151,7 +149,7 @@ class Board
 										if(_fields[move.endField.y - 1][move.endField.x - 1].state == FieldState.Empty)
 											return true;
 									}
-									else if(move.endField.x == move.startField.x && move.startField.x < _fields[move.startField.y - 1].length - 1) // we push it up-right
+									else if(move.endField.x == move.startField.x && move.startField.x < rowLength[move.startField.y - 1] - 1) // we push it up-right
 									{
 										if(_fields[move.endField.y - 1][move.endField.x].state == FieldState.Empty)
 											return true;
@@ -211,7 +209,7 @@ class Board
 										if(_fields[move.endField.y + 1][move.endField.x - 1].state == FieldState.Empty)
 											return true;
 									}
-									else if(move.endField.x >= move.startField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // we push it up-right
+									else if(move.endField.x >= move.startField.x && move.startField.x < rowLength[move.startField.y + 1] - 1) // we push it up-right
 									{
 										if(_fields[move.endField.y + 1][move.endField.x].state == FieldState.Empty)
 											return true;
@@ -296,7 +294,7 @@ class Board
 										if(_fields[move.startField.y - 1][move.startField.x + 1].state == FieldState.Empty)
 											return true;
 									}
-									else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y].length - 1) // pull up-right
+									else if(move.startField.x == move.endField.x && move.startField.x < rowLength[move.startField.y] - 1) // pull up-right
 									{
 										if(_fields[move.startField.y - 1][move.startField.x].state == FieldState.Empty)
 											return true;
@@ -355,7 +353,7 @@ class Board
 										if(_fields[move.startField.y + 1][move.startField.x - 1].state == FieldState.Empty)
 											return true;
 									}
-									else if(move.startField.x == move.endField.x && move.startField.x < _fields[move.startField.y + 1].length - 1) // pull down-right
+									else if(move.startField.x == move.endField.x && move.startField.x < rowLength[move.startField.y + 1] - 1) // pull down-right
 									{
 										if(_fields[move.startField.y + 1][move.startField.x].state == FieldState.Empty)
 											return true;
@@ -415,7 +413,7 @@ class Board
 							}
 							else // pull right
 							{
-								if(move.startField.x + 1 > _fields[move.startField.y].length - 1)
+								if(move.startField.x + 1 > rowLength[move.startField.y] - 1)
 									return false;
 
 								if(_fields[move.startField.y][move.startField.x + 1].state == FieldState.Empty)
@@ -658,16 +656,5 @@ class Board
 		void setFieldState(int x, int y, FieldState state)
 		{
 			_fields[y][x].state = state;
-		}
-
-		/**
-		* Gets the size of the specified row.
-		* Params:
-		*	row =			Number of row.
-		* Returns: Size of row.
-		*/
-		int getRowLength(int row)
-		{
-			return _fields[row].length;
 		}
 }

@@ -69,8 +69,8 @@ Allowed values:
 
 </dd>
 
-<dt><span class="decl"><a name="GameDisplay.getClickedField"></a>Field 
-<span class="currsymbol">getClickedField</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>);
+<dt><span class="decl"><a name="GameDisplay.getClickedField"></a>bool 
+<span class="currsymbol">getClickedField</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>, out int <span class="funcparam">bx</span>, out int <span class="funcparam">by</span>, BoardArrangement <span class="funcparam">ba</span> = BoardArrangement.Normal);
 </span></dt>
 <dd>Gets the field that was clicked.
 <br><br>
@@ -83,9 +83,21 @@ Allowed values:
 <td nowrap valign="top" style="padding-right: 8px">int <span class="funcparam">y</span></td>
 
 <td>Y coordinate of a click.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">int <span class="funcparam">bx</span></td>
+
+<td>X coordinate of the field to be returned as a parameter.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">int <span class="funcparam">by</span></td>
+
+<td>Y coordinate to be returned as a parameter.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">BoardArrangement <span class="funcparam">ba</span></td>
+
+<td>Board arrangement.</td></tr>
 </table><br>
 <b>Returns:</b><br>
-Clicked field if ok, <b>null</b> if clicked outside of the board.<br><br>
+<b>true</b> if clicked inside the board boundaries, <b>false</b> otherwise.<br><br>
 
 </dd>
 </dl>
@@ -98,7 +110,7 @@ Clicked field if ok, <b>null</b> if clicked outside of the board.<br><br>
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Thu Feb 19 16:34:10 2015
+            on Thu Feb 19 17:39:31 2015
 
         </td>-->
 <span id="packages" class="emptytag">
