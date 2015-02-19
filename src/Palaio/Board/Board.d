@@ -3,11 +3,21 @@ module Palaio.Board.Board;
 import Palaio.Board.Field;
 import Palaio.Board.Move;
 
+/// Enum type representing the players.
+/// Allowed values: Player.Green, Player.Yellow.
+/// All values correspond to the appropriate FieldState values.
+enum Player
+{
+	Green = FieldState.Green,
+	Yellow = FieldState.Yellow
+}
+
 /// Class implementing the board.
 class Board
 {
 	private:
 		Field[][] _fields;
+		int _points[FieldState];
 		
 	public:
 		/// a simple cheatsheet, just to make sure we don't copy a whole board just to check row's length.
@@ -25,6 +35,10 @@ class Board
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j <  rowLength[i]; j++)
 					_fields[i][j] = new Field(j, i);
+
+			// init the point array
+			_points[FieldState.Green] = 0;
+			_points[FieldState.Yellow] = 0;
 
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < rowLength[i]; j++)
@@ -622,6 +636,14 @@ class Board
 			return false;
 		}
 
+		/// Clears the board and sets every field's state to Empty.
+		void clear()
+		{
+			for(int i = 0; i < 7; i++)
+				for(int j = 0; j < rowLength[i]; j++)
+					_fields[i][j].state = FieldState.Empty;
+		}
+		
 		/**
 		* Gets Field object of particular field.
 		* Params:
@@ -656,5 +678,37 @@ class Board
 		void setFieldState(int x, int y, FieldState state)
 		{
 			_fields[y][x].state = state;
+		}
+
+		/**
+		* Gets the number of points for specified player.
+		* Params:
+		*	player =			Player to check the points.
+		* Returns: Points got by specified player.
+		*/
+		int getPoints(Player player)
+		{
+			return _points[player];
+		}
+
+		/**
+		* Sets the number of points for specified player.
+		* Params:
+		*	player =			Player to set the points.
+		*	points =		Points to set.
+		*/
+		void setPoints(Player player, int points)
+		{
+			_points[player] = points;
+		}
+
+		/**
+		* Adds one point for specified player.
+		* Params:
+		*	player =			Player to add point.
+		*/
+		void addPoint(Player player)
+		{
+			_points[player]++;
 		}
 }
