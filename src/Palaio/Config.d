@@ -1,7 +1,5 @@
 module Palaio.Config;
 
-import std.math;
-
 /// Width of the screen.
 const int WIDTH = 800;
 
