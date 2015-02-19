@@ -4,6 +4,7 @@ import core.thread;
 import core.sync.mutex;
 
 import Palaio.Utilities.Vector;
+import Palaio.Utilities.Log;
 
 import Derelict.SDL2.sdl;
 
@@ -18,14 +19,20 @@ class Input
 		static Vector!SDL_Event _eventQueue;
 		static Mutex _inputMutex;
 		static Thread _inputThread;
+
+		Log _l;
 		
 		this()
 		{
+			_l = Log.getInstance();
+
 			thread_init();
 			_eventQueue = new Vector!SDL_Event();
 			_inputMutex = new Mutex();
 			_inputThread = new Thread(&Input.handler);
+			_l.write("Initialized input thread");
 			_inputThread.start();
+			_l.write("Started input thread");
 		}
 
 		~this()
