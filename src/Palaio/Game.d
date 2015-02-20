@@ -15,7 +15,7 @@ pragma(lib, "DerelictUtil.lib");
 /// Class representing the general game logic (to be further extended into child classes).
 class Game : AppState
 {
-	private:
+	protected:
 		GameDisplay _gd;
 		Input _input;
 		Board _board;
@@ -31,7 +31,7 @@ class Game : AppState
 			_ba = ba;
 
 			_input = Input.getInstance();
-			_input.clearQueue(); // just in case
+			//_input.clearQueue(); // just in case
 		}
 
 		/// Clears the board, sets pawns in their appropriate starting positions and clears the score.
