@@ -20,6 +20,7 @@ class Game : AppState
 		Input _input;
 		Board _board;
 		BoardArrangement _ba;
+		Player _turn; // who's turn is it
 
 	public:
 		/// Creates a new object.
@@ -33,7 +34,7 @@ class Game : AppState
 			_input.clearQueue(); // just in case
 		}
 
-		/// Sets pawns in their appropriate starting positions.
+		/// Clears the board, sets pawns in their appropriate starting positions and clears the score.
 		void newGame()
 		{
 			_board.clear(); // again, just in case
@@ -59,10 +60,128 @@ class Game : AppState
 			// set points to 0
 			_board.setPoints(Player.Green, 0);
 			_board.setPoints(Player.Yellow, 0);
+
+			_turn = Player.Green;
 		}
 
-		void handleClick()
+		/**
+		* Gets a move that was clicked by player.
+		* Returns: The valid move that was chosen by player.
+		*/
+		Move handleClick()
 		{
+			SDL_Event e;
+			int tempX, tempY;
+			Field start = null;
+			Field end = null;
+			FieldState player = ((_turn == Player.Green) ? FieldState.Green : FieldState.Yellow);
+			Move move;
+
+			while(true)
+			{
+				e = _input.popEvent();
+
+				switch(e.type)
+				{
+					case SDL_MOUSEBUTTONDOWN:
+						if(_gd.getClickedField(e.button.x, e.button.y, tempX, tempY, _ba))
+						{
+							if(start is null) // get the first field
+							{
+								if(_board.getFieldState(tempX, tempY) == FieldState.Block || _board.getFieldState(tempX, tempY) == player)
+								{
+									start = _board.getField(tempX, tempY);
+									_gd.updateScreen(_board, _ba, _board.getField(tempX, tempY));
+								}
+							}
+							else // get the second field. not so easy this time
+							{
+								switch(_board.getFieldState(tempX, tempY))
+								{
+									case FieldState.Empty:
+										if(start.state == player)
+										{
+											end = _board.getField(tempX, tempY);
+											move = new Move(MoveType.Move, start, end);
+											if(_board.checkMove(move))
+												return move;
+											else
+											{
+												start = null;
+												end = null;
+												_gd.updateScreen(_board, _ba);
+											}
+										}
+										else
+										{
+											start = null;
+											_gd.updateScreen(_board, _ba);
+										}
+									break;
+
+									case FieldState.Block:
+										if(start.state == player)
+										{
+											end = _board.getField(tempX, tempY);
+											move = new Move(MoveType.Push, start, end);
+											if(_board.checkMove(move))
+												return move;
+											else
+											{
+												start = null;
+												end = null;
+												_gd.updateScreen(_board, _ba);
+											}
+										}
+										else
+										{
+											start = null;
+											_gd.updateScreen(_board, _ba);
+										}
+									break;
+
+									case player:
+										if(start.state == FieldState.Block)
+										{
+											end = _board.getField(tempX, tempY);
+											move = new Move(MoveType.Pull, end, start); // start field and end field are reversed in pull (player always on start)
+											if(_board.checkMove(move))
+												return move;
+											else
+											{
+												start = null;
+												end = null;
+												_gd.updateScreen(_board, _ba);
+											}
+										}
+										else
+										{
+											start = null;
+											_gd.updateScreen(_board, _ba);
+										}
+									break;
+
+									default:
+										start = null;
+										_gd.updateScreen(_board, _ba);
+									break;
+								}
+							}	
+						}
+
+					break;
+
+					case SDL_QUIT:
+						// handle this situation properely
+						return null;
+					break;
+
+					default: // type could be 0 if queue was empty, so we have default here
+					break;
+				}
+			}
+
+			return null;
 		}
 
 		@property 
