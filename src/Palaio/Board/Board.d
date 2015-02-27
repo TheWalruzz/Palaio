@@ -120,7 +120,11 @@ class Board
 
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < rowLength[i]; j++)
+				{
 					_fields[i][j].state = board.getFieldState(j, i);
+					_points[Player.Green] = board.getPoints(Player.Green);
+					_points[Player.Yellow] = board.getPoints(Player.Yellow);
+				}
 		}
 
 		/**
