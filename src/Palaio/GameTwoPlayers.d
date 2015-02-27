@@ -32,7 +32,7 @@ class GameTwoPlayers : Game
 				{
 					_board.doMove(tempMove);
 					_gd.updateScreen(_board, _ba);
-					_turn = ((_turn == Player.Green) ? Player.Yellow : Player.Green);
+					nextTurn();
 				}
 				else
 					return;
@@ -42,7 +42,7 @@ class GameTwoPlayers : Game
 				{
 					_board.doMove(tempMove);
 					_gd.updateScreen(_board, _ba);
-					_turn = ((_turn == Player.Green) ? Player.Yellow : Player.Green);
+					nextTurn();
 				}
 				else
 					return;

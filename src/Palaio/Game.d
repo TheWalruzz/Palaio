@@ -183,6 +183,12 @@ class Game : AppState
 			return null;
 		}
 
+		/// Sets the turn to next player.
+		void nextTurn()
+		{
+			_turn = ((_turn == Player.Green) ? Player.Yellow : Player.Green);
+		}
+
 		@property 
 		{
 			/// Sets the board arrangement.
