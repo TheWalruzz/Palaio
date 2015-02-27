@@ -31,7 +31,6 @@ class GameTwoPlayers : Game
 				if(tempMove !is null)
 				{
 					_board.doMove(tempMove);
-					_board.nextTurn();
 					_gd.updateScreen(_board, _ba);
 				}
 				else
@@ -41,7 +40,6 @@ class GameTwoPlayers : Game
 				if(tempMove !is null)
 				{
 					_board.doMove(tempMove);
-					_board.nextTurn();
 					_gd.updateScreen(_board, _ba);
 				}
 				else

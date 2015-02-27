@@ -3,7 +3,7 @@ module Palaio.Board.Board;
 import Palaio.Board.Field;
 import Palaio.Board.Move;
 
-debug import std.stdio;
+import std.conv;
 
 /// Enum type representing the players.
 /// Allowed values: Player.Green, Player.Yellow.
@@ -150,7 +150,6 @@ class Board
 		*/
 		bool checkMove(ref Move move)
 		{
-			//debug writefln("move %s: (%d %d), (%d %d)", move.moveType, move.startField.x, move.startField.y, move.endField.x, move.endField.y);
 			if(move.startField.checkNeighbour(move.endField))
 			{
 				if(move.moveType == MoveType.Move)
@@ -453,7 +452,7 @@ class Board
 		}
 
 		/**
-		* Applies a move to the board if that move is valid. 
+		* Applies a move to the board if that move is valid. Also changes the turn variable to the next player automatically.
 		* Params:
 		*	move =			Move to be applied.
 		* Returns: true if move was correctly applied, false otherwise.
@@ -658,6 +657,8 @@ class Board
 							_fields[move.startField.y][move.startField.x + 1].state = player;
 					}
 				}
+
+				nextTurn();
 
 				return true;
 			}
