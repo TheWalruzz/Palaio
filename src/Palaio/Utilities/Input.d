@@ -59,11 +59,9 @@ class Input
 			SDL_Event e;
 			bool flag = true;
 
-			SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_ENABLE);
-
 			while(flag)
 			{
-				if(SDL_WaitEvent(&e))
+				if(SDL_PeepEvents(&e, 1, SDL_GETEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT) > 0)
 				{
 					synchronized(_inputMutex)
 					{
@@ -97,16 +95,14 @@ class Input
 		{
 			SDL_Event temp;
 
-			/*synchronized(_inputMutex)
+			synchronized(_inputMutex)
 			{
 				if(_eventQueue.length > 0)
-				{
 					temp = _eventQueue.popFront();
-					writefln("popped: %d", temp.type);
-				}
-			}*/
+			}
 
-			SDL_PollEvent(&temp);
+			// just to repopulate the SDL's event queue. must be called by main thread
+			SDL_PumpEvents();
 
 			return temp;
 		}
