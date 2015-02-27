@@ -5,17 +5,20 @@ import Palaio.Board.Board;
 import Palaio.Board.Move;
 import Palaio.Game;
 
+/// Class representing two player game.
 class GameTwoPlayers : Game
 {
 	private:
 		
 
 	public:
-		this(BoardArrangement ba = BoardArrangement.Normal)
+		// not really needed - constructor is inherited
+		/*this(BoardArrangement ba = BoardArrangement.Normal)
 		{
 			super(ba);
-		}
+		}*/
 
+		/// Overriden run() method from Game class.
 		override void run()
 		{
 			Move tempMove;

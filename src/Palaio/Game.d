@@ -7,8 +7,6 @@ import Palaio.Board.Field;
 import Palaio.Board.Move;
 import Palaio.AppState;
 
-import std.stdio;
-
 import Derelict.SDL2.sdl;
 
 pragma(lib, "DerelictSDL2.lib");
@@ -22,7 +20,7 @@ class Game : AppState
 		Input _input;
 		Board _board;
 		BoardArrangement _ba;
-		Player _turn; // who's turn is it
+		Player _turn; // whose turn is it
 
 	public:
 		/// Creates a new object.
@@ -33,7 +31,6 @@ class Game : AppState
 			_ba = ba;
 
 			_input = Input.getInstance();
-			//_input.unpauseInput(); // just in case
 		}
 
 		/// Clears the board, sets pawns in their appropriate starting positions and clears the score.
@@ -68,7 +65,7 @@ class Game : AppState
 
 		/**
 		* Gets a move that was clicked by player.
-		* Returns: The valid move that was chosen by player.
+		* Returns: The valid move that was chosen by player, null if invalid.
 		*/
 		Move handleClick()
 		{

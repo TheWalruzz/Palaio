@@ -17,7 +17,7 @@ class Board
 {
 	private:
 		Field[][] _fields;
-		int _points[FieldState];
+		int _points[Player];
 		
 	public:
 		/// a simple cheatsheet, just to make sure we don't copy a whole board just to check row's length.
@@ -37,8 +37,8 @@ class Board
 					_fields[i][j] = new Field(j, i);
 
 			// init the point array
-			_points[FieldState.Green] = 0;
-			_points[FieldState.Yellow] = 0;
+			_points[Player.Green] = 0;
+			_points[Player.Yellow] = 0;
 
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < rowLength[i]; j++)

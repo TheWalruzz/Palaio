@@ -6,8 +6,6 @@ import core.sync.mutex;
 import Palaio.Utilities.Vector;
 import Palaio.Utilities.Log;
 
-import std.stdio;
-
 import Derelict.SDL2.sdl;
 
 pragma(lib, "DerelictSDL2.lib");
