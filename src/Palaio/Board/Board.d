@@ -223,9 +223,9 @@ class Board
 								break;
 							}
 						}
-						else if(move.startField.y > move.endField.y) // push down
+						else if(move.startField.y < move.endField.y) // push down
 						{
-							switch(move.endField.y) // there's a lot of strange calculations based on our irregular hexagonal board. trust me, it's working
+							switch(move.startField.y) // there's a lot of strange calculations based on our irregular hexagonal board. trust me, it's working
 							{
 								case 3:
 								case 4:
