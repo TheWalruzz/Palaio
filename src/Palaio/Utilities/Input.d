@@ -93,14 +93,16 @@ class Input
 		{
 			SDL_Event temp;
 
+			// called here because popEvent would be called in a loop anyway
+			// just to repopulate the SDL's event queue.
+			// must be called by main thread
+			SDL_PumpEvents();
+
 			synchronized(_inputMutex)
 			{
 				if(_eventQueue.length > 0)
 					temp = _eventQueue.popFront();
 			}
-
-			// just to repopulate the SDL's event queue. must be called by main thread
-			SDL_PumpEvents();
 
 			return temp;
 		}
