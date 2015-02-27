@@ -3,6 +3,8 @@ module Palaio.Board.Board;
 import Palaio.Board.Field;
 import Palaio.Board.Move;
 
+debug import std.stdio;
+
 /// Enum type representing the players.
 /// Allowed values: Player.Green, Player.Yellow.
 /// All values correspond to the appropriate FieldState values.
@@ -18,6 +20,7 @@ class Board
 	private:
 		Field[][] _fields;
 		int _points[Player];
+		Player _turn;
 		
 	public:
 		/// a simple cheatsheet, just to make sure we don't copy a whole board just to check row's length.
@@ -39,6 +42,8 @@ class Board
 			// init the point array
 			_points[Player.Green] = 0;
 			_points[Player.Yellow] = 0;
+
+			_turn = Player.Green;
 
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < rowLength[i]; j++)
@@ -124,6 +129,8 @@ class Board
 			
 			_points[Player.Green] = board.getPoints(Player.Green);
 			_points[Player.Yellow] = board.getPoints(Player.Yellow);
+
+			_turn = board.player;
 		}
 
 		/**
@@ -143,6 +150,7 @@ class Board
 		*/
 		bool checkMove(ref Move move)
 		{
+			//debug writefln("move %s: (%d %d), (%d %d)", move.moveType, move.startField.x, move.startField.y, move.endField.x, move.endField.y);
 			if(move.startField.checkNeighbour(move.endField))
 			{
 				if(move.moveType == MoveType.Move)
@@ -468,6 +476,15 @@ class Board
 						switch(move.startField.y)
 						{
 							case 2:
+								if(move.endField.x < move.startField.x) // left
+									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Empty;
+								else // right
+									_fields[move.endField.y - 1][move.endField.x].state = FieldState.Empty;
+
+								// push was made to the yellow's start row - green gets a point
+								addPoint(Player.Green);
+							break;
+
 							case 3:
 								if(move.endField.x < move.startField.x) // left
 									_fields[move.endField.y - 1][move.endField.x - 1].state = FieldState.Block;
@@ -502,8 +519,17 @@ class Board
 					else if(move.endField.y > move.startField.y) // push down
 						switch(move.startField.y)
 						{
-							case 3:
 							case 4:
+								if(move.startField.x > move.endField.x) // left
+									_fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Empty;
+								else // right
+									_fields[move.endField.y + 1][move.endField.x].state = FieldState.Empty;
+
+								// push was made to the green's start row - yellow gets a point
+								addPoint(Player.Yellow);
+							break;
+
+							case 3:
 								if(move.startField.x > move.endField.x) // left
 									_fields[move.endField.y + 1][move.endField.x - 1].state = FieldState.Block;
 								else // right
@@ -713,5 +739,30 @@ class Board
 		void addPoint(Player player)
 		{
 			_points[player]++;
+		}
+
+		/**
+		* Gets the player that has to do the move now.
+		* Returns: Player to make the move.
+		*/
+		Player player()
+		{
+			return _turn;
+		}
+
+		/**
+		* Sets the player that has to do the move now.
+		* Params:
+		*	newPlayer =			The player to take turn now.
+		*/
+		void player(Player newPlayer)
+		{
+			_turn = newPlayer;
+		}
+
+		/// Sets the turn to next player.
+		void nextTurn()
+		{
+			_turn = ((_turn == Player.Green) ? Player.Yellow : Player.Green);
 		}
 }

@@ -1,6 +1,7 @@
 module Palaio.GameDisplay;
 
 import std.math;
+import std.conv;
 
 import Palaio.Config;
 import Palaio.Utilities.Screen;
@@ -138,7 +139,20 @@ class GameDisplay
 				}
 			}
 
-			// TODO: add some text, e.g. for points
+			SDL_Texture* temp = null;
+			SDL_Color color = {255, 255, 255};
+
+			temp = _s.getTextTexture(((board.player == Player.Green) ? "Green" : "Yellow"), "gfx/OpenSans-Regular.ttf", color, 32);
+			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 25));
+			SDL_DestroyTexture(temp);
+
+			temp = _s.getTextTexture(to!string(board.getPoints(Player.Yellow))~"\0", "gfx/OpenSans-Regular.ttf", color, 32);
+			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 3.5*_pawnDimH));
+			SDL_DestroyTexture(temp);
+
+			temp = _s.getTextTexture(to!string(board.getPoints(Player.Green))~"\0", "gfx/OpenSans-Regular.ttf", color, 32);
+			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) + 3*_pawnDimH));
+			SDL_DestroyTexture(temp);
 
 			_s.renderAll();
 		}

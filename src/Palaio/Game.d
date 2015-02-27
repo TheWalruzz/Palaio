@@ -20,7 +20,6 @@ class Game : AppState
 		Input _input;
 		Board _board;
 		BoardArrangement _ba;
-		Player _turn; // whose turn is it
 
 	public:
 		/// Creates a new object.
@@ -60,7 +59,7 @@ class Game : AppState
 			_board.setPoints(Player.Green, 0);
 			_board.setPoints(Player.Yellow, 0);
 
-			_turn = Player.Green;
+			_board.player = Player.Green;
 		}
 
 		/**
@@ -73,7 +72,7 @@ class Game : AppState
 			int tempX, tempY;
 			Field start = null;
 			Field end = null;
-			FieldState player = ((_turn == Player.Green) ? FieldState.Green : FieldState.Yellow);
+			FieldState player = ((_board.player == Player.Green) ? FieldState.Green : FieldState.Yellow);
 			Move move;
 
 			while(true)
@@ -181,12 +180,6 @@ class Game : AppState
 			}
 
 			return null;
-		}
-
-		/// Sets the turn to next player.
-		void nextTurn()
-		{
-			_turn = ((_turn == Player.Green) ? Player.Yellow : Player.Green);
 		}
 
 		@property 
