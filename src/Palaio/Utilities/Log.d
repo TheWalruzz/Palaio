@@ -30,8 +30,6 @@ class Log
             _f=File(LOGFILE, "w"); // create/clear file
             _f.writefln("Log @ %s", getTime()); // add timestamp
             _f.close(); // close, so we could append later
-
-            _f=File(LOGFILE, "a"); // ...aaand we open it again
         }
 
     public:
@@ -54,9 +52,11 @@ class Log
 		*/
         bool write(string text)
         {
+			_f = File(LOGFILE, "a"); // ...aaand we open it again
             if(_f.isOpen())
             {
                 _f.writefln("%s\t%s", getTime(),text);
+				_f.close();
                 return true;
             }
 

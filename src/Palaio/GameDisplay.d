@@ -4,6 +4,7 @@ import std.math;
 
 import Palaio.Config;
 import Palaio.Utilities.Screen;
+import Palaio.Utilities.Input;
 import Palaio.Board.Board;
 import Palaio.Board.Field;
 
@@ -154,7 +155,7 @@ class GameDisplay
 		*/
 		bool getClickedField(int x, int y, out int bx, out int by, BoardArrangement ba = BoardArrangement.Normal)
 		{
-			if(y >= cast(int) ((HEIGHT / 2) - (3.5 * _pawnDimH)) && y <= cast(int) ((HEIGHT / 2) + (1.5 * _pawnDimH)))
+			if(y >= cast(int) ((HEIGHT / 2) - (3.5 * _pawnDimH)) && y <= cast(int) ((HEIGHT / 2) + (3.5 * _pawnDimH)))
 			{
 				int i = cast(int) floor((y - ( (HEIGHT / 2) - (3.5 * _pawnDimH))) / _pawnDimH);
 
@@ -162,13 +163,13 @@ class GameDisplay
 				{
 					if(ba == BoardArrangement.Normal)
 					{
-						bx = i;
-						by = cast(int) (floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW));
+						by = i;
+						bx = cast(int) (floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW));
 					}
 					else
 					{
-						bx = 6 - i;
-						by = Board.rowLength[i] - 1 - cast(int) floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW);
+						by = 6 - i;
+						bx = Board.rowLength[i] - 1 - cast(int) floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW);
 					}
 
 					return true;

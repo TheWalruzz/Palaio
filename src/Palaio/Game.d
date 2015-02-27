@@ -7,6 +7,8 @@ import Palaio.Board.Field;
 import Palaio.Board.Move;
 import Palaio.AppState;
 
+import std.stdio;
+
 import Derelict.SDL2.sdl;
 
 pragma(lib, "DerelictSDL2.lib");
@@ -31,7 +33,7 @@ class Game : AppState
 			_ba = ba;
 
 			_input = Input.getInstance();
-			//_input.clearQueue(); // just in case
+			//_input.unpauseInput(); // just in case
 		}
 
 		/// Clears the board, sets pawns in their appropriate starting positions and clears the score.

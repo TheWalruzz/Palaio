@@ -18,7 +18,7 @@ pragma(lib,"DerelictUtil.lib");
 class Screen
 {
     private:
-		static Screen _instance;
+		__gshared Screen _instance;
 
         SDL_Renderer *_ren;
         SDL_Window *_win;
@@ -36,6 +36,8 @@ class Screen
             if(!TTF_WasInit()) // just because Derelict's bindings for SDL2_TTF are shit
                 if(TTF_Init() < 0)
                     _l.write("Error: Can't initialize SDL_TTF: "~to!string(TTF_GetError()));
+
+			_l.write("SDL initialized");
 
             _win = SDL_CreateWindow(cast(char*) WINDOWTITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT,SDL_WINDOW_SHOWN);
             if(_win is null)

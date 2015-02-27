@@ -1,10 +1,12 @@
 module Palaio.Utilities.Input;
 
-import core.thread;
+import std.concurrency;
 import core.sync.mutex;
 
 import Palaio.Utilities.Vector;
 import Palaio.Utilities.Log;
+
+import std.stdio;
 
 import Derelict.SDL2.sdl;
 
@@ -15,29 +17,22 @@ pragma(lib, "DerelictUtil.lib");
 class Input
 {
 	private:
-		static Input _instance = null;
-		static Vector!SDL_Event _eventQueue;
-		static Mutex _inputMutex;
-		static Thread _inputThread;
+		__gshared Input _instance = null;
+		__gshared Vector!SDL_Event _eventQueue;
+		__gshared Mutex _inputMutex;
 
-		Log _l;
-		
+		static Log _l;
+
 		this()
 		{
 			_l = Log.getInstance();
 
-			thread_init();
 			_eventQueue = new Vector!SDL_Event();
 			_inputMutex = new Mutex();
-			_inputThread = new Thread(&Input.handler);
-			_l.write("Initialized input thread");
-			_inputThread.start();
-			_l.write("Started input thread");
 		}
 
 		~this()
 		{
-			_inputThread.join();
 		}
 
 	public:
@@ -48,7 +43,12 @@ class Input
 		static ref Input getInstance()
 		{
 			if(_instance is null)
+			{
 				_instance = new Input();
+
+				spawn(&handler);
+				_l.write("Started input thread");
+			}
 
 			return _instance;
 		}
@@ -59,11 +59,13 @@ class Input
 			SDL_Event e;
 			bool flag = true;
 
+			SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_ENABLE);
+
 			while(flag)
 			{
-				synchronized(_inputMutex)
+				if(SDL_WaitEvent(&e))
 				{
-					if(SDL_PollEvent(&e))
+					synchronized(_inputMutex)
 					{
 						_eventQueue.pushBack(e);
 
@@ -95,13 +97,16 @@ class Input
 		{
 			SDL_Event temp;
 
-			synchronized(_inputMutex)
+			/*synchronized(_inputMutex)
 			{
 				if(_eventQueue.length > 0)
+				{
 					temp = _eventQueue.popFront();
-				else
-					temp.type = 0;
-			}
+					writefln("popped: %d", temp.type);
+				}
+			}*/
+
+			SDL_PollEvent(&temp);
 
 			return temp;
 		}
@@ -127,10 +132,4 @@ class Input
 				_eventQueue.clear();
 			}
 		}
-
-		/**
-		* Gets the mutex used in input handling.
-		* Returns: Reference to mutex.
-		*/
-		@property ref Mutex mutex() { return _inputMutex; }
 }
