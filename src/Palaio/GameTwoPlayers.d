@@ -18,7 +18,7 @@ class GameTwoPlayers : Game
 			super(ba);
 		}*/
 
-		/// Overriden run() method from Game class.
+		/// Overriden run() method from AppState class.
 		override void run()
 		{
 			Move tempMove;
