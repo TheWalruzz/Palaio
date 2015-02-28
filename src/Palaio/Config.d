@@ -11,3 +11,6 @@ const string WINDOWTITLE = "Palaio";
 
 /// Filename of log file.
 const string LOGFILE = "log.txt";
+
+/// Font used throughout the game.
+const string FONT = "gfx/OpenSans-Regular.ttf";
