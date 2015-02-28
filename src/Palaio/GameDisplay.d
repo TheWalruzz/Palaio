@@ -146,11 +146,11 @@ class GameDisplay
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 25));
 			SDL_DestroyTexture(temp);
 
-			temp = _s.getTextTexture(to!string(board.getPoints(Player.Yellow))~"\0", "gfx/OpenSans-Regular.ttf", color, 32);
+			temp = _s.getTextTexture(to!string(board.getPoints((ba == BoardArrangement.Normal) ? Player.Yellow : Player.Green))~"\0", "gfx/OpenSans-Regular.ttf", color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 3.5*_pawnDimH));
 			SDL_DestroyTexture(temp);
 
-			temp = _s.getTextTexture(to!string(board.getPoints(Player.Green))~"\0", "gfx/OpenSans-Regular.ttf", color, 32);
+			temp = _s.getTextTexture(to!string(board.getPoints((ba == BoardArrangement.Normal) ? Player.Green : Player.Yellow))~"\0", "gfx/OpenSans-Regular.ttf", color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) + 3*_pawnDimH));
 			SDL_DestroyTexture(temp);
 

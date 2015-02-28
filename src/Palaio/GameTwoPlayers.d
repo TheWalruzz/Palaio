@@ -12,11 +12,11 @@ class GameTwoPlayers : Game
 		
 
 	public:
-		// not really needed - constructor is inherited
-		/*this(BoardArrangement ba = BoardArrangement.Normal)
+		/// Creates new obejct.
+		this(BoardArrangement ba = BoardArrangement.Normal)
 		{
 			super(ba);
-		}*/
+		}
 
 		/// Overriden run() method from AppState class.
 		override void run()
