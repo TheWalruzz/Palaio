@@ -182,6 +182,25 @@ class Game : AppState
 			return null;
 		}
 
+		/**
+		* Handles the input and moving of player's pawn.
+		* Returns: true if input was valid and move was correctly made, false otherwise.
+		*/
+		bool movePlayer()
+		{
+			Move tempMove = handleClick();
+
+			if(tempMove !is null)
+			{
+				_board.doMove(tempMove);
+				_gd.updateScreen(_board, _ba);
+
+				return true;
+			}
+
+			return false;
+		}
+
 		@property 
 		{
 			/// Sets the board arrangement.

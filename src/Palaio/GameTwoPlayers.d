@@ -27,23 +27,12 @@ class GameTwoPlayers : Game
 
 			while(true)
 			{
-				tempMove = handleClick();
-				if(tempMove !is null)
-				{
-					_board.doMove(tempMove);
-					_gd.updateScreen(_board, _ba);
-				}
-				else
+				if(!movePlayer())
 					return;
 
-				tempMove = handleClick();
-				if(tempMove !is null)
-				{
-					_board.doMove(tempMove);
-					_gd.updateScreen(_board, _ba);
-				}
-				else
-					return;
+				// since we have two human players, following lines are not really needed
+				/*if(!movePlayer())
+					return;*/
 			}
 		}
 }
