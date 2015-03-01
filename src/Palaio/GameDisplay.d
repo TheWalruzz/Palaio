@@ -69,7 +69,7 @@ class GameDisplay
 		* Params:
 		*	board =			Board to be rendered.
 		*	ba =			Board arrangement.
-		*	highlighted =	Field that should be highlighted.
+		*	highlighted =	Field that should be highlighted, null if none.
 		*/
 		void updateScreen(Board board, BoardArrangement ba = BoardArrangement.Normal, Field highlighted = null)
 		{

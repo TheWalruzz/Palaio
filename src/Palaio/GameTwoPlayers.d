@@ -12,7 +12,7 @@ class GameTwoPlayers : Game
 		
 
 	public:
-		/// Creates new obejct.
+		/// Creates new object.
 		this(BoardArrangement ba = BoardArrangement.Normal)
 		{
 			super(ba);
