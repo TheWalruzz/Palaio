@@ -89,13 +89,13 @@ class GameDisplay
 
 				for(int j = 0; j < Board.rowLength[i]; j++)
 				{
-					if(board.getFieldState(j, i) != FieldState.Empty)
+					if(board[j, i] != FieldState.Empty)
 					{
 						string state;
 
 						// check if field is highlighted...
 						if(highlighted !is null && board.getField(j, i) == highlighted)
-							switch(board.getFieldState(j, i))
+							switch(board[j, i])
 							{
 								case FieldState.Green:
 									state = "green-hl";
@@ -113,7 +113,7 @@ class GameDisplay
 								break;
 							}
 						else
-							switch(board.getFieldState(j, i))
+							switch(board[j, i])
 							{
 								case FieldState.Green:
 									state = "green";

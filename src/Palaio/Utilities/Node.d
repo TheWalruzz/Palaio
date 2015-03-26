@@ -112,10 +112,10 @@ class Node(T)
         }
 
 		/// Sorts the children in ascending order using standard "<" implementation for T template type.
-		void sortChildren()
+		/*void sortChildren()
 		{
 			_children.sort();
-		}
+		}*/
 
 		@property
 		{

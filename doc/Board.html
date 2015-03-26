@@ -112,6 +112,16 @@ New Board object.<br><br>
 
 </dd>
 
+<dt><span class="decl"><a name="Board.generateMoves"></a>Node!Move 
+<span class="currsymbol">generateMoves</span>();
+</span></dt>
+<dd>Generates a Node containing possible moves for actual board setting as children.
+<br><br>
+<b>Returns:</b><br>
+Node with possible moves.<br><br>
+
+</dd>
+
 <dt><span class="decl"><a name="Board.clear"></a>void 
 <span class="currsymbol">clear</span>();
 </span></dt>
@@ -139,10 +149,10 @@ Reference to the Field object.<br><br>
 
 </dd>
 
-<dt><span class="decl"><a name="Board.getFieldState"></a>FieldState 
-<span class="currsymbol">getFieldState</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>);
+<dt><span class="decl"><a name="Board.opIndex"></a>FieldState 
+<span class="currsymbol">opIndex</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>);
 </span></dt>
-<dd>Gets state of particular field.
+<dd>Gets state of particular field via overloaded index, e.g. board[<span class="funcparam">x</span>, <span class="funcparam">y</span>].
 <br><br>
 <b>Params:</b><br>
 <table><tr>
@@ -159,10 +169,10 @@ State of a field.<br><br>
 
 </dd>
 
-<dt><span class="decl"><a name="Board.setFieldState"></a>void 
-<span class="currsymbol">setFieldState</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>, FieldState <span class="funcparam">state</span>);
+<dt><span class="decl"><a name="Board.opIndexAssign"></a>void 
+<span class="currsymbol">opIndexAssign</span>(FieldState <span class="funcparam">state</span>, int <span class="funcparam">x</span>, int <span class="funcparam">y</span>);
 </span></dt>
-<dd>Sets <span class="funcparam">state</span> of particular field.
+<dd>Sets <span class="funcparam">state</span> of particular field via overloaded index asignment, e.g. board[<span class="funcparam">x</span>, <span class="funcparam">y</span>] = <span class="funcparam">state</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
@@ -272,7 +282,7 @@ Player to make the move.<br><br>
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Fri Feb 27 19:56:41 2015
+            on Thu Mar 26 01:54:45 2015
 
         </td>-->
 <span id="packages" class="emptytag">

@@ -2,6 +2,7 @@ module Palaio.Board.Board;
 
 import Palaio.Board.Field;
 import Palaio.Board.Move;
+import Palaio.Utilities.Node;
 
 import std.conv;
 
@@ -125,7 +126,7 @@ class Board
 
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < rowLength[i]; j++)
-					_fields[i][j].state = board.getFieldState(j, i);
+					_fields[i][j].state = board[j, i];
 			
 			_points[Player.Green] = board.getPoints(Player.Green);
 			_points[Player.Yellow] = board.getPoints(Player.Yellow);
@@ -666,6 +667,29 @@ class Board
 			return false;
 		}
 
+		/**
+		* Generates a Node containing possible moves for actual board setting as children.
+		* Returns: Node with possible moves.
+		*/
+		Node!Move generateMoves()
+		{
+			auto root = new Node!Move();
+			Move tempMove;
+			int checkedCounter = 0;
+			
+			for(int i = 0; i < 7; i++)
+				for(int j = 0; checkedCounter < 5 && j < rowLength[i]; j++)
+					if(_fields[i][j].state == cast(FieldState) _turn)
+					{
+						++checkedCounter;
+
+						// check every possible move for that pawn...
+						
+					}
+
+			return null; // for now
+		}
+
 		/// Clears the board and sets every field's state to Empty.
 		void clear()
 		{
@@ -687,25 +711,25 @@ class Board
 		}
 
 		/**
-		* Gets state of particular field.
+		* Gets state of particular field via overloaded index, e.g. board[x, y].
 		* Params:
 		*	x =				X index of the field.
 		*	y =				Y index of the field.
 		* Returns: State of a field.
 		*/
-		FieldState getFieldState(int x, int y)
+		FieldState opIndex(int x, int y)
 		{
 			return _fields[y][x].state;
 		}
 
 		/**
-		* Sets state of particular field.
+		* Sets state of particular field via overloaded index asignment, e.g. board[x, y] = state.
 		* Params:
 		*	x =				X index of the field.
 		*	y =				Y index of the field.
 		*	state =			New state of a field.
 		*/
-		void setFieldState(int x, int y, FieldState state)
+		void opIndexAssign(FieldState state, int x, int y)
 		{
 			_fields[y][x].state = state;
 		}

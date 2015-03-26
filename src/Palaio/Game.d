@@ -38,22 +38,22 @@ class Game : AppState
 			_board.clear(); // again, just in case
 
 			// set all the pawns to proper positions.
-			_board.setFieldState(0, 0, FieldState.Yellow);
-			_board.setFieldState(1, 0, FieldState.Yellow);
-			_board.setFieldState(2, 0, FieldState.Yellow);
-			_board.setFieldState(3, 0, FieldState.Yellow);
-			_board.setFieldState(4, 0, FieldState.Yellow);
+			_board[0, 0] = FieldState.Yellow;
+			_board[1, 0] = FieldState.Yellow;
+			_board[2, 0] = FieldState.Yellow;
+			_board[3, 0] = FieldState.Yellow;
+			_board[4, 0] = FieldState.Yellow;
 
-			_board.setFieldState(2, 3, FieldState.Block);
-			_board.setFieldState(3, 3, FieldState.Block);
-			_board.setFieldState(4, 3, FieldState.Block);
-			_board.setFieldState(5, 3, FieldState.Block);
+			_board[2, 3] = FieldState.Block;
+			_board[3, 3] = FieldState.Block;
+			_board[4, 3] = FieldState.Block;
+			_board[5, 3] = FieldState.Block;
 
-			_board.setFieldState(0, 6, FieldState.Green);
-			_board.setFieldState(1, 6, FieldState.Green);
-			_board.setFieldState(2, 6, FieldState.Green);
-			_board.setFieldState(3, 6, FieldState.Green);
-			_board.setFieldState(4, 6, FieldState.Green);
+			_board[0, 6] = FieldState.Green;
+			_board[1, 6] = FieldState.Green;
+			_board[2, 6] = FieldState.Green;
+			_board[3, 6] = FieldState.Green;
+			_board[4, 6] = FieldState.Green;
 
 			// set points to 0
 			_board.setPoints(Player.Green, 0);
@@ -86,7 +86,7 @@ class Game : AppState
 						{
 							if(start is null) // get the first field
 							{
-								if(_board.getFieldState(tempX, tempY) == FieldState.Block || _board.getFieldState(tempX, tempY) == player)
+								if(_board[tempX, tempY] == FieldState.Block || _board[tempX, tempY] == player)
 								{
 									start = _board.getField(tempX, tempY);
 									_gd.updateScreen(_board, _ba, _board.getField(tempX, tempY));
@@ -94,7 +94,7 @@ class Game : AppState
 							}
 							else // get the second field. not so easy this time
 							{
-								switch(_board.getFieldState(tempX, tempY))
+								switch(_board[tempX, tempY])
 								{
 									case FieldState.Empty:
 										if(start.state == player)
