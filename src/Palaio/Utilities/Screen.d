@@ -18,7 +18,7 @@ pragma(lib,"DerelictUtil.lib");
 class Screen
 {
     private:
-		__gshared Screen _instance;
+		static Screen _instance;
 
         SDL_Renderer *_ren;
         SDL_Window *_win;

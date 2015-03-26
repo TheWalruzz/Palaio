@@ -23,14 +23,12 @@
 <br>
 
 <dl>
-<dt><span class="decl"><a name="Player"></a>enum 
-<span class="currsymbol">Player</span>: FieldState;
+<dt><span class="decl"><a name="PlayerPawn"></a>enum 
+<span class="currsymbol">PlayerPawn</span>: FieldState;
 </span></dt>
-<dd>Enum type representing the players.
+<dd>Enum type representing the players' pawns on board.
 <br><br>
-Allowed values: 
-<span class="currsymbol">Player</span>.Green, 
-<span class="currsymbol">Player</span>.Yellow.
+Allowed values: Player.Green, Player.Yellow.
 <br>
 
 All values correspond to the appropriate FieldState values.<br><br>
@@ -192,15 +190,15 @@ State of a field.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.getPoints"></a>int 
-<span class="currsymbol">getPoints</span>(Player <span class="funcparam">player</span>);
+<span class="currsymbol">getPoints</span>(PlayerPawn <span class="funcparam">player</span>);
 </span></dt>
 <dd>Gets the number of points for specified <span class="funcparam">player</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">Player <span class="funcparam">player</span></td>
+<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">player</span></td>
 
-<td>Player to check the points.</td></tr>
+<td>The <span class="funcparam">player</span> to check points for.</td></tr>
 </table><br>
 <b>Returns:</b><br>
 Points got by specified <span class="funcparam">player</span>.<br><br>
@@ -208,13 +206,13 @@ Points got by specified <span class="funcparam">player</span>.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.setPoints"></a>void 
-<span class="currsymbol">setPoints</span>(Player <span class="funcparam">player</span>, int <span class="funcparam">points</span>);
+<span class="currsymbol">setPoints</span>(PlayerPawn <span class="funcparam">player</span>, int <span class="funcparam">points</span>);
 </span></dt>
 <dd>Sets the number of <span class="funcparam">points</span> for specified <span class="funcparam">player</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">Player <span class="funcparam">player</span></td>
+<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">player</span></td>
 
 <td>Player to set the <span class="funcparam">points</span>.</td></tr>
 <tr>
@@ -226,24 +224,23 @@ Points got by specified <span class="funcparam">player</span>.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.addPoint"></a>void 
-<span class="currsymbol">addPoint</span>(Player <span class="funcparam">player</span>);
+<span class="currsymbol">addPoint</span>(PlayerPawn <span class="funcparam">player</span>);
 </span></dt>
 <dd>Adds one point for specified <span class="funcparam">player</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">Player <span class="funcparam">player</span></td>
+<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">player</span></td>
 
 <td>Player to add point.</td></tr>
 </table><br>
 
 </dd>
 
-<dt><span class="decl"><a name="Board.player"></a>Player 
-<span class="currsymbol">player</span>();
+<dt><span class="decl"><a name="Board.turn"></a>PlayerPawn 
+<span class="currsymbol">turn</span>();
 </span></dt>
-<dd>Gets the 
-<span class="currsymbol">player</span> that has to do the move now.
+<dd>Gets the player that has to do the move now.
 <br><br>
 <b>Returns:</b><br>
 Player to make the move.<br><br>
@@ -251,14 +248,14 @@ Player to make the move.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.player"></a>void 
-<span class="currsymbol">player</span>(Player <span class="funcparam">newPlayer</span>);
+<span class="currsymbol">player</span>(PlayerPawn <span class="funcparam">newPlayer</span>);
 </span></dt>
 <dd>Sets the 
 <span class="currsymbol">player</span> that has to do the move now.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">Player <span class="funcparam">newPlayer</span></td>
+<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">newPlayer</span></td>
 
 <td>The 
 <span class="currsymbol">player</span> to take turn now.</td></tr>
@@ -282,13 +279,15 @@ Player to make the move.<br><br>
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Thu Mar 26 10:23:15 2015
+            on Thu Mar 26 23:03:00 2015
 
         </td>-->
 <span id="packages" class="emptytag">
     <span class="emptytag module" modulename="Palaio.Board.Board"></span> 
     <span class="emptytag module" modulename="Palaio.Board.Field"></span> 
     <span class="emptytag module" modulename="Palaio.Board.Move"></span> 
+    <span class="emptytag module" modulename="Palaio.Player.HumanPlayer"></span> 
+    <span class="emptytag module" modulename="Palaio.Player.Player"></span> 
     <span class="emptytag module" modulename="Palaio.Utilities.Input"></span> 
     <span class="emptytag module" modulename="Palaio.Utilities.Log"></span> 
     <span class="emptytag module" modulename="Palaio.Utilities.Node"></span> 
@@ -298,8 +297,6 @@ Player to make the move.<br><br>
     <span class="emptytag module" modulename="Palaio.Config"></span> 
     <span class="emptytag module" modulename="Palaio.Game"></span> 
     <span class="emptytag module" modulename="Palaio.GameDisplay"></span> 
-    <span class="emptytag module" modulename="Palaio.GameSinglePlayer"></span> 
-    <span class="emptytag module" modulename="Palaio.GameTwoPlayers"></span> 
     <span class="emptytag module" modulename=".Main"></span> </span>
 </body></html>
 

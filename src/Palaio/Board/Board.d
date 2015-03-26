@@ -8,10 +8,10 @@ import std.conv;
 
 import std.stdio;
 
-/// Enum type representing the players.
+/// Enum type representing the players' pawns on board.
 /// Allowed values: Player.Green, Player.Yellow.
 /// All values correspond to the appropriate FieldState values.
-enum Player
+enum PlayerPawn
 {
 	Green = FieldState.Green,
 	Yellow = FieldState.Yellow
@@ -22,8 +22,8 @@ class Board
 {
 	private:
 		Field[][] _fields;
-		int _points[Player];
-		Player _turn;
+		int _points[PlayerPawn];
+		PlayerPawn _turn;
 		
 	public:
 		/// a simple cheatsheet, just to make sure we don't copy a whole board just to check row's length.
@@ -43,10 +43,10 @@ class Board
 					_fields[i][j] = new Field(j, i);
 
 			// init the point array
-			_points[Player.Green] = 0;
-			_points[Player.Yellow] = 0;
+			_points[PlayerPawn.Green] = 0;
+			_points[PlayerPawn.Yellow] = 0;
 
-			_turn = Player.Green;
+			_turn = PlayerPawn.Green;
 
 			for(int i = 0; i < 7; i++)
 				for(int j = 0; j < rowLength[i]; j++)
@@ -130,10 +130,10 @@ class Board
 				for(int j = 0; j < rowLength[i]; j++)
 					_fields[i][j].state = board[j, i];
 			
-			_points[Player.Green] = board.getPoints(Player.Green);
-			_points[Player.Yellow] = board.getPoints(Player.Yellow);
+			_points[PlayerPawn.Green] = board.getPoints(PlayerPawn.Green);
+			_points[PlayerPawn.Yellow] = board.getPoints(PlayerPawn.Yellow);
 
-			_turn = board.player;
+			_turn = board.turn;
 		}
 
 		/**
@@ -484,7 +484,7 @@ class Board
 									_fields[move.endField.y - 1][move.endField.x].state = FieldState.Empty;
 
 								// push was made to the yellow's start row - green gets a point
-								addPoint(Player.Green);
+								addPoint(PlayerPawn.Green);
 							break;
 
 							case 3:
@@ -528,7 +528,7 @@ class Board
 									_fields[move.endField.y + 1][move.endField.x].state = FieldState.Empty;
 
 								// push was made to the green's start row - yellow gets a point
-								addPoint(Player.Yellow);
+								addPoint(PlayerPawn.Yellow);
 							break;
 
 							case 3:
@@ -751,10 +751,10 @@ class Board
 		/**
 		* Gets the number of points for specified player.
 		* Params:
-		*	player =			Player to check the points.
+		*	player =			The player to check points for.
 		* Returns: Points got by specified player.
 		*/
-		int getPoints(Player player)
+		int getPoints(PlayerPawn player)
 		{
 			return _points[player];
 		}
@@ -765,7 +765,7 @@ class Board
 		*	player =			Player to set the points.
 		*	points =		Points to set.
 		*/
-		void setPoints(Player player, int points)
+		void setPoints(PlayerPawn player, int points)
 		{
 			_points[player] = points;
 		}
@@ -775,7 +775,7 @@ class Board
 		* Params:
 		*	player =			Player to add point.
 		*/
-		void addPoint(Player player)
+		void addPoint(PlayerPawn player)
 		{
 			_points[player]++;
 		}
@@ -784,7 +784,7 @@ class Board
 		* Gets the player that has to do the move now.
 		* Returns: Player to make the move.
 		*/
-		Player player()
+		PlayerPawn turn()
 		{
 			return _turn;
 		}
@@ -794,7 +794,7 @@ class Board
 		* Params:
 		*	newPlayer =			The player to take turn now.
 		*/
-		void player(Player newPlayer)
+		void player(PlayerPawn newPlayer)
 		{
 			_turn = newPlayer;
 		}
@@ -802,6 +802,6 @@ class Board
 		/// Sets the turn to next player.
 		void nextTurn()
 		{
-			_turn = ((_turn == Player.Green) ? Player.Yellow : Player.Green);
+			_turn = ((_turn == PlayerPawn.Green) ? PlayerPawn.Yellow : PlayerPawn.Green);
 		}
 }

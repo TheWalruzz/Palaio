@@ -37,18 +37,22 @@ Allowed values:
 <dt><span class="decl"><a name="GameDisplay"></a>class 
 <span class="currsymbol">GameDisplay</span>;
 </span></dt>
-<dd>Class implementing the on-screen display of everything game-related.<br><br>
+<dd>Singleton class implementing the on-screen display of everything game-related.<br><br>
 
 
 <dl>
-<dt><span class="decl"><a name="GameDisplay.this"></a>this();
+<dt><span class="decl"><a name="GameDisplay.getInstance"></a>static ref GameDisplay 
+<span class="currsymbol">getInstance</span>();
 </span></dt>
-<dd>Creates a new object.<br><br>
+<dd>Gets the singleton instance of object.
+<br><br>
+<b>Returns:</b><br>
+Reference to the object.<br><br>
 
 </dd>
 
 <dt><span class="decl"><a name="GameDisplay.updateScreen"></a>void 
-<span class="currsymbol">updateScreen</span>(Board <span class="funcparam">board</span>, BoardArrangement <span class="funcparam">ba</span> = BoardArrangement.Normal, Field <span class="funcparam">highlighted</span> = null);
+<span class="currsymbol">updateScreen</span>(Board <span class="funcparam">board</span>, Field <span class="funcparam">highlighted</span> = null);
 </span></dt>
 <dd>Updates the <span class="funcparam">board</span> on the screen.
 <br><br>
@@ -58,7 +62,7 @@ Allowed values:
 
 <td>Board to be rendered.</td></tr>
 <tr>
-<td nowrap valign="top" style="padding-right: 8px">BoardArrangement <span class="funcparam">ba</span></td>
+<td nowrap valign="top" style="padding-right: 8px">ba</td>
 
 <td>Board arrangement.</td></tr>
 <tr>
@@ -70,7 +74,7 @@ Allowed values:
 </dd>
 
 <dt><span class="decl"><a name="GameDisplay.getClickedField"></a>bool 
-<span class="currsymbol">getClickedField</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>, out int <span class="funcparam">bx</span>, out int <span class="funcparam">by</span>, BoardArrangement <span class="funcparam">ba</span> = BoardArrangement.Normal);
+<span class="currsymbol">getClickedField</span>(int <span class="funcparam">x</span>, int <span class="funcparam">y</span>, out int <span class="funcparam">bx</span>, out int <span class="funcparam">by</span>);
 </span></dt>
 <dd>Gets the field that was clicked.
 <br><br>
@@ -92,12 +96,26 @@ Allowed values:
 
 <td>Y coordinate to be returned as a parameter.</td></tr>
 <tr>
-<td nowrap valign="top" style="padding-right: 8px">BoardArrangement <span class="funcparam">ba</span></td>
+<td nowrap valign="top" style="padding-right: 8px">ba</td>
 
 <td>Board arrangement.</td></tr>
 </table><br>
 <b>Returns:</b><br>
 <b>true</b> if clicked inside the board boundaries, <b>false</b> otherwise.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="GameDisplay.boardArrangement"></a>@property BoardArrangement 
+<span class="currsymbol">boardArrangement</span>();
+</span></dt>
+<dd>Gets the displayed arrangement of board.<br><br>
+
+</dd>
+
+<dt><span class="decl"><a name="GameDisplay.boardArrangement"></a>@property void 
+<span class="currsymbol">boardArrangement</span>(BoardArrangement <span class="funcparam">ba</span>);
+</span></dt>
+<dd>Sets the displayed arrangement of board.<br><br>
 
 </dd>
 </dl>
@@ -110,13 +128,15 @@ Allowed values:
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Sun Mar  1 15:22:37 2015
+            on Thu Mar 26 23:03:00 2015
 
         </td>-->
 <span id="packages" class="emptytag">
     <span class="emptytag module" modulename="Palaio.Board.Board"></span> 
     <span class="emptytag module" modulename="Palaio.Board.Field"></span> 
     <span class="emptytag module" modulename="Palaio.Board.Move"></span> 
+    <span class="emptytag module" modulename="Palaio.Player.HumanPlayer"></span> 
+    <span class="emptytag module" modulename="Palaio.Player.Player"></span> 
     <span class="emptytag module" modulename="Palaio.Utilities.Input"></span> 
     <span class="emptytag module" modulename="Palaio.Utilities.Log"></span> 
     <span class="emptytag module" modulename="Palaio.Utilities.Node"></span> 
@@ -126,8 +146,6 @@ Allowed values:
     <span class="emptytag module" modulename="Palaio.Config"></span> 
     <span class="emptytag module" modulename="Palaio.Game"></span> 
     <span class="emptytag module" modulename="Palaio.GameDisplay"></span> 
-    <span class="emptytag module" modulename="Palaio.GameSinglePlayer"></span> 
-    <span class="emptytag module" modulename="Palaio.GameTwoPlayers"></span> 
     <span class="emptytag module" modulename=".Main"></span> </span>
 </body></html>
 

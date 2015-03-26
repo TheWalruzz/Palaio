@@ -22,19 +22,19 @@ enum BoardArrangement
 	Reversed
 }
 
-/// Class implementing the on-screen display of everything game-related.
+/// Singleton class implementing the on-screen display of everything game-related.
 class GameDisplay
 {
 	private:
+		static GameDisplay _instance = null;
 		Screen _s;
 		SDL_Texture* _textures[string];
+		BoardArrangement _ba;
 
 		// Dimensions of the pawns.
 		int _pawnDimH;
 		int _pawnDimW;
 
-	public:
-		/// Creates a new object.
 		this()
 		{
 			_s = Screen.getInstance();
@@ -50,9 +50,10 @@ class GameDisplay
 
 			_pawnDimH = cast(int) ((HEIGHT - 64) / 7);
 			_pawnDimW = cast(int) (_pawnDimH * (ceil(sqrt(3.0) / 2)));
+
+			_ba = BoardArrangement.Normal;
 		}
 
-		/// Deletes the object.
 		~this()
 		{
 			SDL_DestroyTexture(_textures["board"]);
@@ -64,6 +65,19 @@ class GameDisplay
 			SDL_DestroyTexture(_textures["block-hl"]);
 		}
 
+	public:
+		/**
+		* Gets the singleton instance of object.
+		* Returns: Reference to the object.
+		*/
+		static ref GameDisplay getInstance()
+		{
+			if(_instance is null)
+				_instance = new GameDisplay();
+
+			return _instance;
+		}
+
 		/**
 		* Updates the board on the screen.
 		* Params:
@@ -71,7 +85,7 @@ class GameDisplay
 		*	ba =			Board arrangement.
 		*	highlighted =	Field that should be highlighted, null if none.
 		*/
-		void updateScreen(Board board, BoardArrangement ba = BoardArrangement.Normal, Field highlighted = null)
+		void updateScreen(Board board, Field highlighted = null)
 		{
 			_s.clear();
 
@@ -131,7 +145,7 @@ class GameDisplay
 								break;
 							}
 
-						if(ba == BoardArrangement.Normal)
+						if(_ba == BoardArrangement.Normal)
 							_s.addTexture(_textures[state], startx + (j * _pawnDimW), starty, _pawnDimW, _pawnDimH);
 						else
 							_s.addTexture(_textures[state], (_pawnDimW * Board.rowLength[i]) + startx - ((j+1) * _pawnDimW), cast(int) (_pawnDimH * 6.9) - starty, _pawnDimW, _pawnDimH); // cast(int) (_pawnDimH * 6.9) is a quick fix for now
@@ -142,15 +156,15 @@ class GameDisplay
 			SDL_Texture* temp = null;
 			SDL_Color color = {255, 255, 255};
 
-			temp = _s.getTextTexture(((board.player == Player.Green) ? "Green" : "Yellow"), FONT, color, 32);
+			temp = _s.getTextTexture(((board.turn == PlayerPawn.Green) ? "Green" : "Yellow"), FONT, color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 25));
 			SDL_DestroyTexture(temp);
 
-			temp = _s.getTextTexture(to!string(board.getPoints((ba == BoardArrangement.Normal) ? Player.Yellow : Player.Green))~"\0", FONT, color, 32);
+			temp = _s.getTextTexture(to!string(board.getPoints((_ba == BoardArrangement.Normal) ? PlayerPawn.Yellow : PlayerPawn.Green))~"\0", FONT, color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 3.5*_pawnDimH));
 			SDL_DestroyTexture(temp);
 
-			temp = _s.getTextTexture(to!string(board.getPoints((ba == BoardArrangement.Normal) ? Player.Green : Player.Yellow))~"\0", FONT, color, 32);
+			temp = _s.getTextTexture(to!string(board.getPoints((_ba == BoardArrangement.Normal) ? PlayerPawn.Green : PlayerPawn.Yellow))~"\0", FONT, color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) + 3*_pawnDimH));
 			SDL_DestroyTexture(temp);
 
@@ -167,7 +181,7 @@ class GameDisplay
 		*	ba =			Board arrangement.
 		* Returns: true if clicked inside the board boundaries, false otherwise.
 		*/
-		bool getClickedField(int x, int y, out int bx, out int by, BoardArrangement ba = BoardArrangement.Normal)
+		bool getClickedField(int x, int y, out int bx, out int by)
 		{
 			if(y >= cast(int) ((HEIGHT / 2) - (3.5 * _pawnDimH)) && y <= cast(int) ((HEIGHT / 2) + (3.5 * _pawnDimH)))
 			{
@@ -175,7 +189,7 @@ class GameDisplay
 
 				if(x >= cast(int) ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW)) && x <= cast(int) ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW) + (Board.rowLength[i]+1) * _pawnDimW))
 				{
-					if(ba == BoardArrangement.Normal)
+					if(_ba == BoardArrangement.Normal)
 					{
 						by = i;
 						bx = cast(int) (floor((x - ((WIDTH / 2) - ((-abs(0.5*(i - 3)) + 4) * _pawnDimW))) / _pawnDimW));
@@ -191,5 +205,14 @@ class GameDisplay
 			}
 
 			return false;
+		}
+
+		@property
+		{
+			/// Gets the displayed arrangement of board.
+			BoardArrangement boardArrangement() { return _ba; }
+
+			/// Sets the displayed arrangement of board.
+			void boardArrangement(BoardArrangement ba) { _ba = ba; }
 		}
 }
