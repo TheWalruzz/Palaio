@@ -701,12 +701,6 @@ class Board
 						
 					}
 
-			debug
-			{
-				for(int i = 0; i < root.childrenSize(); i++)
-					writefln("%s: %d %d -> %d %d", root[i].data.moveType, root[i].data.startField.x, root[i].data.startField.y, root[i].data.endField.x, root[i].data.endField.y);
-			}
-
 			return root;
 		}
 
