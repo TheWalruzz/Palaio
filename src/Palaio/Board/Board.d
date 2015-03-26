@@ -6,6 +6,8 @@ import Palaio.Utilities.Node;
 
 import std.conv;
 
+import std.stdio;
+
 /// Enum type representing the players.
 /// Allowed values: Player.Green, Player.Yellow.
 /// All values correspond to the appropriate FieldState values.
@@ -120,7 +122,7 @@ class Board
 		* Params:
 		*	board =			Board to copy from.
 		*/
-		this(ref Board board)
+		this(Board board)
 		{
 			this();
 
@@ -674,7 +676,6 @@ class Board
 		Node!Move generateMoves()
 		{
 			auto root = new Node!Move();
-			Move tempMove;
 			int checkedCounter = 0;
 			
 			for(int i = 0; i < 7; i++)
@@ -683,11 +684,30 @@ class Board
 					{
 						++checkedCounter;
 
-						// check every possible move for that pawn...
+						for(int k = 0; k < _fields[i][j].neighbours.length; k++)
+						{
+							auto tempMove = new Move(MoveType.Move, _fields[i][j], _fields[i][j].neighbours[k]);
+							if(checkMove(tempMove))
+								root.addChild(tempMove);
+
+							auto tempPush = new Move(MoveType.Push, _fields[i][j], _fields[i][j].neighbours[k]);
+							if(checkMove(tempPush))
+								root.addChild(tempPush);
+
+							auto tempPull = new Move(MoveType.Pull, _fields[i][j], _fields[i][j].neighbours[k]);
+							if(checkMove(tempPull))
+								root.addChild(tempPull);
+						}
 						
 					}
 
-			return null; // for now
+			debug
+			{
+				for(int i = 0; i < root.childrenSize(); i++)
+					writefln("%s: %d %d -> %d %d", root[i].data.moveType, root[i].data.startField.x, root[i].data.startField.y, root[i].data.endField.x, root[i].data.endField.y);
+			}
+
+			return root;
 		}
 
 		/// Clears the board and sets every field's state to Empty.
