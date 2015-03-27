@@ -4,8 +4,8 @@ import Palaio.GameDisplay;
 import Palaio.Board.Board;
 import Palaio.Board.Move;
 
-/// Abstract class for representing player logic.
-abstract class Player
+/// Interface for representing player logic.
+interface Player
 {
 	public:
 		/**
@@ -15,5 +15,5 @@ abstract class Player
 		*	board =		Actual state of the board.
 		* Returns: Move to make.
 		*/
-		Move nextMove(Board board) { return null; }
+		Move nextMove(Board board);
 }

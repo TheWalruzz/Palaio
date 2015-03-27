@@ -40,7 +40,7 @@ class HumanPlayer : Player
 			int tempX, tempY;
 			Field start = null;
 			Field end = null;
-			FieldState player = ((board.turn == PlayerPawn.Green) ? FieldState.Green : FieldState.Yellow);
+			FieldState player = ((board.turn == FieldState.Green) ? FieldState.Green : FieldState.Yellow);
 			Move move;
 
 			while(true)

@@ -58,10 +58,10 @@ class Game : AppState
 			_board[4, 6] = FieldState.Green;
 
 			// set points to 0
-			_board.setPoints(PlayerPawn.Green, 0);
-			_board.setPoints(PlayerPawn.Yellow, 0);
+			_board.setPoints(FieldState.Green, 0);
+			_board.setPoints(FieldState.Yellow, 0);
 
-			_board.player = PlayerPawn.Green;
+			_board.player = FieldState.Green;
 		}
 
 		/// Overriden run() method from AppState class.

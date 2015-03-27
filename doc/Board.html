@@ -23,18 +23,6 @@
 <br>
 
 <dl>
-<dt><span class="decl"><a name="PlayerPawn"></a>enum 
-<span class="currsymbol">PlayerPawn</span>: FieldState;
-</span></dt>
-<dd>Enum type representing the players' pawns on board.
-<br><br>
-Allowed values: Player.Green, Player.Yellow.
-<br>
-
-All values correspond to the appropriate FieldState values.<br><br>
-
-</dd>
-
 <dt><span class="decl"><a name="Board"></a>class 
 <span class="currsymbol">Board</span>;
 </span></dt>
@@ -190,13 +178,13 @@ State of a field.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.getPoints"></a>int 
-<span class="currsymbol">getPoints</span>(PlayerPawn <span class="funcparam">player</span>);
+<span class="currsymbol">getPoints</span>(FieldState <span class="funcparam">player</span>);
 </span></dt>
 <dd>Gets the number of points for specified <span class="funcparam">player</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">player</span></td>
+<td nowrap valign="top" style="padding-right: 8px">FieldState <span class="funcparam">player</span></td>
 
 <td>The <span class="funcparam">player</span> to check points for.</td></tr>
 </table><br>
@@ -206,13 +194,13 @@ Points got by specified <span class="funcparam">player</span>.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.setPoints"></a>void 
-<span class="currsymbol">setPoints</span>(PlayerPawn <span class="funcparam">player</span>, int <span class="funcparam">points</span>);
+<span class="currsymbol">setPoints</span>(FieldState <span class="funcparam">player</span>, int <span class="funcparam">points</span>);
 </span></dt>
 <dd>Sets the number of <span class="funcparam">points</span> for specified <span class="funcparam">player</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">player</span></td>
+<td nowrap valign="top" style="padding-right: 8px">FieldState <span class="funcparam">player</span></td>
 
 <td>Player to set the <span class="funcparam">points</span>.</td></tr>
 <tr>
@@ -224,20 +212,20 @@ Points got by specified <span class="funcparam">player</span>.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.addPoint"></a>void 
-<span class="currsymbol">addPoint</span>(PlayerPawn <span class="funcparam">player</span>);
+<span class="currsymbol">addPoint</span>(FieldState <span class="funcparam">player</span>);
 </span></dt>
 <dd>Adds one point for specified <span class="funcparam">player</span>.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">player</span></td>
+<td nowrap valign="top" style="padding-right: 8px">FieldState <span class="funcparam">player</span></td>
 
 <td>Player to add point.</td></tr>
 </table><br>
 
 </dd>
 
-<dt><span class="decl"><a name="Board.turn"></a>PlayerPawn 
+<dt><span class="decl"><a name="Board.turn"></a>FieldState 
 <span class="currsymbol">turn</span>();
 </span></dt>
 <dd>Gets the player that has to do the move now.
@@ -248,14 +236,14 @@ Player to make the move.<br><br>
 </dd>
 
 <dt><span class="decl"><a name="Board.player"></a>void 
-<span class="currsymbol">player</span>(PlayerPawn <span class="funcparam">newPlayer</span>);
+<span class="currsymbol">player</span>(FieldState <span class="funcparam">newPlayer</span>);
 </span></dt>
 <dd>Sets the 
 <span class="currsymbol">player</span> that has to do the move now.
 <br><br>
 <b>Params:</b><br>
 <table><tr>
-<td nowrap valign="top" style="padding-right: 8px">PlayerPawn <span class="funcparam">newPlayer</span></td>
+<td nowrap valign="top" style="padding-right: 8px">FieldState <span class="funcparam">newPlayer</span></td>
 
 <td>The 
 <span class="currsymbol">player</span> to take turn now.</td></tr>
@@ -279,7 +267,7 @@ Player to make the move.<br><br>
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Thu Mar 26 23:03:00 2015
+            on Fri Mar 27 18:02:11 2015
 
         </td>-->
 <span id="packages" class="emptytag">

@@ -87,13 +87,14 @@ class GameDisplay
 		*/
 		void updateScreen(Board board, Field highlighted = null)
 		{
-			_s.clear();
-
-			_s.addTexture(_textures["board"], 0, 0, WIDTH, HEIGHT);
-
 			// screen coordinates of first field in the row
 			int startx;
 			int starty;
+			int textHeight;
+
+			_s.clear();
+
+			_s.addTexture(_textures["board"], 0, 0, WIDTH, HEIGHT);
 
 			for(int i = 0; i < 7; i++)
 			{
@@ -156,15 +157,16 @@ class GameDisplay
 			SDL_Texture* temp = null;
 			SDL_Color color = {255, 255, 255};
 
-			temp = _s.getTextTexture(((board.turn == PlayerPawn.Green) ? "Green" : "Yellow"), FONT, color, 32);
-			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 25));
+			temp = _s.getTextTexture(((board.turn == FieldState.Green) ? "Green" : "Yellow"), FONT, color, 22);
+			SDL_QueryTexture(temp, null, null, null, &textHeight);
+			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - (cast(int) (textHeight/2)) - 1));
 			SDL_DestroyTexture(temp);
 
-			temp = _s.getTextTexture(to!string(board.getPoints((_ba == BoardArrangement.Normal) ? PlayerPawn.Yellow : PlayerPawn.Green))~"\0", FONT, color, 32);
+			temp = _s.getTextTexture(to!string(board.getPoints((_ba == BoardArrangement.Normal) ? FieldState.Yellow : FieldState.Green))~"\0", FONT, color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) - 3.5*_pawnDimH));
 			SDL_DestroyTexture(temp);
 
-			temp = _s.getTextTexture(to!string(board.getPoints((_ba == BoardArrangement.Normal) ? PlayerPawn.Green : PlayerPawn.Yellow))~"\0", FONT, color, 32);
+			temp = _s.getTextTexture(to!string(board.getPoints((_ba == BoardArrangement.Normal) ? FieldState.Green : FieldState.Yellow))~"\0", FONT, color, 32);
 			_s.addTexture(temp, 25, cast(int) ((HEIGHT / 2) + 3*_pawnDimH));
 			SDL_DestroyTexture(temp);
 
