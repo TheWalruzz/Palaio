@@ -25,17 +25,19 @@ class Game : AppState
 
 	public:
 		/// Creates a new object.
-		this(Player green, Player yellow)
+		this()
 		{
 			_gd = GameDisplay.getInstance();
 			_board = new Board();
-
-			_green = green;
-			_yellow = yellow;
 		}
 
-		/// Clears the board, sets pawns in their appropriate starting positions and clears the score.
-		void newGame()
+		/**
+		* Clears the board, sets pawns in their appropriate starting positions, clears the score and assigns players' logic.
+		* Params:
+		* green =			Player logic for green player.
+		* yellow =			Player logic for yellow player.
+		*/
+		void newGame(Player green, Player yellow)
 		{
 			_board.clear(); // again, just in case
 
@@ -62,6 +64,27 @@ class Game : AppState
 			_board.setPoints(FieldState.Yellow, 0);
 
 			_board.player = FieldState.Green;
+
+			_green = green;
+			_yellow = yellow;
+		}
+
+		/**
+		* Checks if game has ended and handles it with a message.
+		* Returns: true if game has ended, false otherwise.
+		*/
+		bool checkVictory()
+		{
+			VictoryState victoryState = _board.getEndState();
+			if(victoryState != VictoryState.None)
+			{
+				_gd.addVictoryMessage(victoryState);
+				_gd.updateScreen(_board);
+
+				return true;
+			}
+
+			return false;
 		}
 
 		/// Overriden run() method from AppState class.
@@ -77,6 +100,13 @@ class Game : AppState
 				if(tempMove !is null)
 				{
 					_board.doMove(tempMove);
+
+					if(checkVictory())
+					{
+						SDL_Delay(1000);
+						return;
+					}
+
 					_gd.updateScreen(_board);
 				}
 				else
@@ -86,6 +116,13 @@ class Game : AppState
 				if(tempMove !is null)
 				{
 					_board.doMove(tempMove);
+
+					if(checkVictory())
+					{
+						SDL_Delay(1000);
+						return;
+					}
+
 					_gd.updateScreen(_board);
 				}
 				else

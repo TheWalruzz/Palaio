@@ -8,6 +8,16 @@ import std.conv;
 
 import std.stdio;
 
+/// The state of the game at the end. It tells us who won or was it a draw.
+/// Allowed values: VictoryState.Green, VictoryState.Yellow, VictoryState.Draw.
+enum VictoryState
+{
+	Green,
+	Yellow,
+	Draw,
+	None
+}
+
 /// Class implementing the board.
 class Board
 {
@@ -794,5 +804,24 @@ class Board
 		void nextTurn()
 		{
 			_turn = ((_turn == FieldState.Green) ? FieldState.Yellow : FieldState.Green);
+		}
+
+		/**
+		* Gets the final state of the game.
+		* Returns: VictoryState if the game has ended or null otherwise.
+		*/
+		VictoryState getEndState()
+		{
+			if(_points[FieldState.Green] + _points[FieldState.Yellow] == 4)
+			{
+				if(_points[FieldState.Green] > _points[FieldState.Yellow])
+					return VictoryState.Green;
+				else if(_points[FieldState.Green] < _points[FieldState.Yellow])
+					return VictoryState.Yellow;
+				else
+					return VictoryState.Draw;
+			}
+
+			return VictoryState.None;
 		}
 }

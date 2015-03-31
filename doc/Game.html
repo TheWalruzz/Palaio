@@ -30,16 +30,37 @@
 
 
 <dl>
-<dt><span class="decl"><a name="Game.this"></a>this(Player <span class="funcparam">green</span>, Player <span class="funcparam">yellow</span>);
+<dt><span class="decl"><a name="Game.this"></a>this();
 </span></dt>
 <dd>Creates a new object.<br><br>
 
 </dd>
 
 <dt><span class="decl"><a name="Game.newGame"></a>void 
-<span class="currsymbol">newGame</span>();
+<span class="currsymbol">newGame</span>(Player <span class="funcparam">green</span>, Player <span class="funcparam">yellow</span>);
 </span></dt>
-<dd>Clears the board, sets pawns in their appropriate starting positions and clears the score.<br><br>
+<dd>Clears the board, sets pawns in their appropriate starting positions, clears the score and assigns players' logic.
+<br><br>
+<b>Params:</b><br>
+<table><tr>
+<td nowrap valign="top" style="padding-right: 8px">Player <span class="funcparam">green</span></td>
+
+<td>Player logic for <span class="funcparam">green</span> player.</td></tr>
+<tr>
+<td nowrap valign="top" style="padding-right: 8px">Player <span class="funcparam">yellow</span></td>
+
+<td>Player logic for <span class="funcparam">yellow</span> player.</td></tr>
+</table><br>
+
+</dd>
+
+<dt><span class="decl"><a name="Game.checkVictory"></a>bool 
+<span class="currsymbol">checkVictory</span>();
+</span></dt>
+<dd>Checks if game has ended and handles it with a message.
+<br><br>
+<b>Returns:</b><br>
+<b>true</b> if game has ended, <b>false</b> otherwise.<br><br>
 
 </dd>
 
@@ -60,7 +81,7 @@
 <!--    <div id="docfooter">
             Page was generated with
             <a href="https://github.com/eldar/candydoc"><img src="candydoc/img/logo.png" style="vertical-align:middle; position:relative; top:-1px"></a>
-            on Thu Mar 26 23:03:00 2015
+            on Tue Mar 31 13:59:33 2015
 
         </td>-->
 <span id="packages" class="emptytag">

@@ -2,6 +2,7 @@ module Palaio.GameDisplay;
 
 import std.math;
 import std.conv;
+debug import std.stdio;
 
 import Palaio.Config;
 import Palaio.Utilities.Screen;
@@ -207,6 +208,26 @@ class GameDisplay
 			}
 
 			return false;
+		}
+
+		/**
+		* Puts victory message to the screen.
+		* Params:
+		*	winner =		Winner of the game.
+		*/
+		void addVictoryMessage(VictoryState victoryState)
+		{
+			string text = ((victoryState == VictoryState.Draw) ? "Draw!" : (((victoryState == VictoryState.Green) ? "Green" : "Yellow") ~ " wins!\0"));
+			int textWidth;
+
+			debug writeln(text);
+
+			SDL_Color color = {255, 255, 255};
+
+			SDL_Texture* temp = _s.getTextTexture(text, FONT, color, 26);
+			SDL_QueryTexture(temp, null, null, &textWidth, null);
+			_s.addTexture(temp, cast(int) ((WIDTH / 2) - (cast(int) (textWidth/2)) - 1), 10);
+			SDL_DestroyTexture(temp);
 		}
 
 		@property
