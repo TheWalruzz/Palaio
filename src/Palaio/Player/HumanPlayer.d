@@ -34,7 +34,7 @@ class HumanPlayer : Player
 		* Gets a move to be made by this player. Handles user input. Overriden from Player class.
 		* Returns: Move to be made or null on error.
 		*/
-		override Move nextMove(Board board)
+		Move nextMove(Board board)
 		{
 			SDL_Event e;
 			int tempX, tempY;
