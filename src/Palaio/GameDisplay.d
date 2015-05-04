@@ -83,7 +83,6 @@ class GameDisplay
 		* Updates the board on the screen.
 		* Params:
 		*	board =			Board to be rendered.
-		*	ba =			Board arrangement.
 		*	highlighted =	Field that should be highlighted, null if none.
 		*/
 		void updateScreen(Board board, Field highlighted = null)
@@ -181,7 +180,6 @@ class GameDisplay
 		*	y =				Y coordinate of a click.
 		*	bx =			X coordinate of the field to be returned as a parameter.
 		*	by =			Y coordinate to be returned as a parameter.
-		*	ba =			Board arrangement.
 		* Returns: true if clicked inside the board boundaries, false otherwise.
 		*/
 		bool getClickedField(int x, int y, out int bx, out int by)
@@ -218,7 +216,7 @@ class GameDisplay
 		void addVictoryMessage(VictoryState victoryState)
 		{
 			string text = ((victoryState == VictoryState.Draw) ? "Draw!" : (((victoryState == VictoryState.Green) ? "Green" : "Yellow") ~ " wins!\0"));
-			int textWidth;
+			/*int textWidth;
 
 			debug writeln(text);
 
@@ -227,7 +225,9 @@ class GameDisplay
 			SDL_Texture* temp = _s.getTextTexture(text, FONT, color, 26);
 			SDL_QueryTexture(temp, null, null, &textWidth, null);
 			_s.addTexture(temp, cast(int) ((WIDTH / 2) - (cast(int) (textWidth/2)) - 1), 10);
-			SDL_DestroyTexture(temp);
+			SDL_DestroyTexture(temp);*/
+
+			_s.messageBox("End of game!", text);
 		}
 
 		@property

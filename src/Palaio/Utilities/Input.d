@@ -18,6 +18,7 @@ class Input
 		__gshared Input _instance = null;
 		__gshared Vector!SDL_Event _eventQueue;
 		__gshared Mutex _inputMutex;
+		__gshared bool _flag;
 
 		static Log _l;
 
@@ -55,9 +56,10 @@ class Input
 		static void handler()
 		{
 			SDL_Event e;
-			bool flag = true;
+			synchronized(_inputMutex)
+				_flag = true;
 
-			while(flag)
+			while(_flag)
 			{
 				if(SDL_PeepEvents(&e, 1, SDL_GETEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT) > 0)
 				{
@@ -66,7 +68,7 @@ class Input
 						_eventQueue.pushBack(e);
 
 						if(e.type == SDL_QUIT)
-							flag = false;
+							_flag = false;
 					}
 				}
 			}
@@ -82,6 +84,9 @@ class Input
 			synchronized(_inputMutex)
 			{
 				_eventQueue.pushBack(event);
+
+				if(event.type == SDL_QUIT)
+					_flag = false;
 			}
 		}
 
@@ -127,5 +132,12 @@ class Input
 			{
 				_eventQueue.clear();
 			}
+		}
+
+		/// Terminates the input thread.
+		void terminateThread()
+		{
+			synchronized(_inputMutex)
+				_flag = false;
 		}
 }
