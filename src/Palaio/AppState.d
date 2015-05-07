@@ -1,9 +1,9 @@
 module Palaio.AppState;
 
-/// Abstract class representing the states of the application.
-abstract class AppState
+/// Interface representing the states of the application.
+interface AppState
 {
 	public:
-	/// Overrideable run method.
-	void run(){}
+	/// Runs the object.
+	void run();
 }

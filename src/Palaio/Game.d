@@ -77,18 +77,13 @@ class Game : AppState
 		{
 			VictoryState victoryState = _board.getEndState();
 			if(victoryState != VictoryState.None)
-			{
-				_gd.addVictoryMessage(victoryState);
-				_gd.updateScreen(_board);
-
 				return true;
-			}
 
 			return false;
 		}
 
-		/// Overriden run() method from AppState class.
-		override void run()
+		/// run() method from AppState interface.
+		void run()
 		{
 			Move tempMove;
 
@@ -103,7 +98,9 @@ class Game : AppState
 
 					if(checkVictory())
 					{
-						SDL_Delay(1000);
+						_gd.updateScreen(_board);
+						_gd.addVictoryMessage(_board.getEndState());
+
 						return;
 					}
 
@@ -119,7 +116,9 @@ class Game : AppState
 
 					if(checkVictory())
 					{
-						SDL_Delay(1000);
+						_gd.updateScreen(_board);
+						_gd.addVictoryMessage(_board.getEndState());
+
 						return;
 					}
 

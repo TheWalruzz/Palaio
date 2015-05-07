@@ -59,7 +59,7 @@ class Input
 			synchronized(_inputMutex)
 				_flag = true;
 
-			while(_flag)
+			while(Input.getInstance().flag)
 			{
 				if(SDL_PeepEvents(&e, 1, SDL_GETEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT) > 0)
 				{
@@ -104,10 +104,8 @@ class Input
 			SDL_PumpEvents();
 
 			synchronized(_inputMutex)
-			{
 				if(_eventQueue.length > 0)
 					temp = _eventQueue.popFront();
-			}
 
 			return temp;
 		}
@@ -129,9 +127,7 @@ class Input
 		void clearQueue()
 		{
 			synchronized(_inputMutex)
-			{
 				_eventQueue.clear();
-			}
 		}
 
 		/// Terminates the input thread.
@@ -139,5 +135,24 @@ class Input
 		{
 			synchronized(_inputMutex)
 				_flag = false;
+		}
+
+		/// Sets the thread state flag to f.
+		/// If set to false, the thread is terminated.
+		@property void flag(bool f)
+		{
+			synchronized(_inputMutex)
+				_flag = f;
+		}
+
+		/// Gets the thread state flag.
+		@property bool flag()
+		{
+			bool temp;
+
+			synchronized(_inputMutex)
+				temp = _flag;
+
+			return temp;
 		}
 }
